@@ -1,0 +1,129 @@
+
+/*-----------Main Elements-----------*/
+
+* 
+{box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /*-----------Header Build -----------*/
+
+    .site-header {
+        background-color: rgba(15,23,42,0.96);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-shell {
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+color: white;
+text-decoration: none;
+font-weight: 700;
+letter-spacing: -0.02em;
+}
+
+.brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 35px;
+    border-radius: 12px;
+    gap: 10px;
+color: #022c22;
+font-size: 0.85rem;
+}
+
+    /*-----------Navigation -----------*/
+
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white; border-radius: 10px;
+    padding: 8px 11px;
+    font-size:1.1rem;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    gap:5px;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: white;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 0;
+    padding: 0 ;
+}
+
+.nav-links li a {
+    color: #dbeafe;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+    color:white;
+}
+
+
+
+    /*-----------Navigation mobile elements -----------*/
+
+
+
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: rgba(15,23,42,0.96);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.open {
+    display:flex;
+}
+}
