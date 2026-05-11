@@ -183,3 +183,47 @@ font-size: 0.85rem;
         font-weight: 800 ;
         margin: 0 0 12px;
     }
+
+
+
+    /*-----------Actions and buttons-----------*/
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 999px;
+    padding: 11px 18px;
+  min-height: 42px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease  ;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #042f2e;
+}
+
+.btn-primary:hover {
+    background: #2dd4bf;
+   box-shadow: 0 10px 25px rgba(20, 184, 166, 0.28);
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+

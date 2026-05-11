@@ -9,8 +9,41 @@
     <h1>Track your assignemnts, spending and studgy life in one place. </h1>
 <p class="hero-text">StudentPilot is a Flask and PostgreSQL web app designed to help students organizse deadlines and ezpenses from a simple personal dashboard.</p>
 
- 
+ <div class="hero-actions">
   
+ <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+
+ <a href="{{ url_for('register') }}" class="btn btn-primary">Create Account</a>
+
+  <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+
   </div>
+    </div>
+
+<div class="hero-panel">
+  <h2>Today's Control Panel</h2>
+  <div class="mini-card>
+    <span>Assignements </span>
+  <strong> Prioritise deadlines </strong>
+</div>
+
+<div class="mini-card">
+<span>Budget</span>
+  <strong> Track Spending </strong>
+</div>
+
+<div class="mini-card">
+<span>Dashboard</span>
+  <strong> See the full picture </strong>
+</div>
+</div>
+</section>
+
+
+
+
+
+
+
 </section>              
 {% endblock %}  
