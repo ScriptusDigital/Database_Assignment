@@ -1,8 +1,21 @@
 
 /*-----------Main Elements-----------*/
 
+
+/* USE OF VARIABLES IN CSS BASED ON
+https://www.w3schools.com/css/css3_variables.asp*/
+
 * 
 {box-sizing: border-box;
+    }
+
+    :root {
+      
+        --accent: #14b8a6;
+        --radius: 18px;
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
+        --bg: #0f172a;
+        --muted: #64748b;
     }
 
     body {
@@ -20,10 +33,9 @@
     .site-header {
         background-color: rgba(15,23,42,0.96);
         color: white;
-        padding: 20px;
-        text-align: center;
         position: sticky;
         top: 0;
+        z-index: 10;
         box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
     }
 
@@ -33,6 +45,8 @@
         align-items: center;
         justify-content: space-between;
         gap: 24px;
+        min-height: 72px;
+        width:92%
     }
 
 .brand {
@@ -48,8 +62,9 @@ letter-spacing: -0.02em;
 .brand-mark {
     display: inline-grid;
     place-items: center;
-    width: 30px;
+    width: 35px;
     height: 35px;
+    background: var(--accent);
     border-radius: 12px;
     gap: 10px;
 color: #022c22;
@@ -69,6 +84,9 @@ font-size: 0.85rem;
     flex-direction: column;
     justify-content: center;
     gap:5px;
+    align-items: center;
+    width: 44px;
+    height: 44px;;
 }
 
 .nav-toggle span {
@@ -99,47 +117,9 @@ font-size: 0.85rem;
     color:white;
 }
 
-.page-shell {
-    width: 92%;
-    margin: 0 auto;
-    padding: 0 44px;
-    flex: 1;            
-}
-.site-footer {
-    background-color: rgba(15,23,42,0.96);
-    color: white;
-    text-align: center;             
-    margin-top: auto;
-    padding: 24px 16px;
-}
 
 
-    /*-----------Navigation mobile elements -----------*/
-
-
-@media (max-width: 768px) {
-    .nav-toggle {
-        display: inline-flex;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: rgba(15,23,42,0.96);
-        padding: 10px 20px;
-        border-radius: 8px;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links.open {
-    display:flex;
-}
-}
-
-
+ 
     /*-----------Main Body Elemets -----------*/
 
     .hero {
@@ -152,7 +132,8 @@ font-size: 0.85rem;
 
 
     .hero-content,
-    .hero-panel {
+    .hero-panel,
+    .feature-card {
         background-color: rgba(255, 255,255,0.88);
         border: 1px solid rgba(226, 232, 250, 0.85);
         border-radius: var(--radius);
@@ -176,7 +157,7 @@ font-size: 0.85rem;
         line-height: 1.7;
     }
 
-    .eye-brow {
+    .eyebrow {
         text-transform: uppercase;
         letter-spacing: 0.14em;
         font-size: 0.85rem;
@@ -184,6 +165,72 @@ font-size: 0.85rem;
         margin: 0 0 12px;
     }
 
+    .hero-panel {
+        padding: 26px;
+      background: #0f172a;
+        color: #e2e8f0;
+    }
+
+    .hero-panel h2 {
+     margin-top:0;
+    }
+
+
+    .mini-card {
+        background: rgba(55,255,255, 0.08);
+        border: 1px solid rgba(255, 255,255,0.14);
+        border-radius: 17px;
+        padding: 16px;
+        margin-top: 14px;
+    }
+
+    .mini-card span {
+        display: block;
+        font-size: 0.85rem;
+        color: #99f6e4;
+        margin-bottom: 4px;
+    }
+
+    .feature-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature-card {
+        padding: 24px;
+    }
+
+    .feature-card h3,
+    .panel h2 {
+        margin-top: 0;
+    }
+
+    .feature-card p {
+        line-height: 1.6;
+        color: var(--muted);
+    }
+
+    .page-shell {
+    padding: 44px 0;
+    flex: 1;        
+}
+
+
+    .page-shell, 
+    .nav-shell {
+        width: 92%;
+        margin: 0 auto;
+    }
+    
+.site-footer {
+    background-color: rgba(15,23,42,0.96);
+    color: white;
+    text-align: center;             
+    margin-top: auto;
+    padding: 24px 16px;
+    background: var(--bg)
+}
 
 
     /*-----------Actions and buttons-----------*/
@@ -225,5 +272,43 @@ font-size: 0.85rem;
 .btn-secondary {
     background: #e2e8f0;
     color: #0f172a;
+}
+
+
+
+   /*-----------Navigation mobile elements -----------*/
+
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: rgba(15,23,42,0.96);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.open {
+    display:flex;
+}
+
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 18px
+}
+
 }
 
