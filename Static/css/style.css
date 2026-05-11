@@ -16,6 +16,7 @@ https://www.w3schools.com/css/css3_variables.asp*/
         --shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
         --bg: #0f172a;
         --muted: #64748b;
+        --text: #172033;
     }
 
     body {
@@ -26,6 +27,10 @@ https://www.w3schools.com/css/css3_variables.asp*/
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        color: var(--text);
+        background: 
+        radial-gradient(circle at top left, rgba(20, 184, 166, 0.08), transparent),
+        linear-gradient(135deg, #eef6ff 0%, #f8fafc 44%, #ecfeff 100%)
     }
 
     /*-----------Header Build -----------*/
@@ -89,6 +94,10 @@ font-size: 0.85rem;
     height: 44px;;
 }
 
+a {
+    color: inherit;
+
+}
 .nav-toggle span {
     display: block;
     width: 22px;
@@ -222,7 +231,7 @@ font-size: 0.85rem;
         width: 92%;
         margin: 0 auto;
     }
-    
+
 .site-footer {
     background-color: rgba(15,23,42,0.96);
     color: white;

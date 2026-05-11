@@ -27,7 +27,13 @@ def register():
 def login():
     return render_template('login.html')
 
+@app.route('/budget')
+def budget():
+    return render_template('budget.html')
 
+@app.route('/assignments')
+def assignments():
+    return render_template('assignments.html')
 
 
 if __name__ == '__main__':
