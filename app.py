@@ -68,6 +68,7 @@ def contact():
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
  
@@ -151,6 +152,14 @@ def login():
             flash('Invalid email or password. Please try again.', 'danger')
 
     return render_template('login.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('home'))
 
 @app.route('/budget')
 def budget():

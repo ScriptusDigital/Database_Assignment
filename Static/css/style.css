@@ -155,7 +155,8 @@ a {
         padding: clamp(28px, 5vw, 56px);
     }
 
-    .hero h1 {
+    .hero h1,
+    .page-heading h1 {
         font-size: clamp(2.1rem, 5vw, 3.5rem);
         line-height: 1.02;
         letter-spacing: -0.06em;
@@ -164,11 +165,15 @@ a {
     }
 
     .hero-text,
-    .form-intro {
+    .form-intro,
+    .page-heading p {
         font-size: 1.1rem;
         line-height: 1.7;
         color: var(--muted);
     }
+        .page-heading {
+            margin-bottom: 28px;
+        }
 
     .eyebrow {
         text-transform: uppercase;
@@ -246,7 +251,7 @@ a {
 }
 
 .flash-wrapper {
-    margin-bottom: 24px;
+    margin: 24px auto
 }
 
 .flash {
@@ -255,7 +260,7 @@ a {
     background: white;
     border: 1px solid var(--line);
     box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
-   
+   font-weight: 500;
 }
 
 .flash-success {
@@ -275,9 +280,16 @@ a {
     color: white
 }
 
+.flash-info {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: #1d4ed8;
+    color: white;
+}
+
     /*-----------Actions and buttons-----------*/
 .hero-actions {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 26px;
@@ -287,6 +299,7 @@ a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     border: none;
     border-radius: 999px;
     padding: 11px 18px;
@@ -349,6 +362,10 @@ a {
     .hero {
         grid-template-columns: 1fr;
     }
+
+    .hero-actions {
+        grid-template-columns: 1fr;
+    }   
 
     .feature-grid {
     grid-template-columns: 1fr;
