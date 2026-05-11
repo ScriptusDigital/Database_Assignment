@@ -99,6 +99,19 @@ font-size: 0.85rem;
     color:white;
 }
 
+.page-shell {
+    width: 92%;
+    margin: 0 auto;
+    padding: 0 44px;
+    flex: 1;            
+}
+.site-footer {
+    background-color: rgba(15,23,42,0.96);
+    color: white;
+    text-align: center;             
+    margin-top: auto;
+    padding: 24px 16px;
+}
 
 
     /*-----------Navigation mobile elements -----------*/
