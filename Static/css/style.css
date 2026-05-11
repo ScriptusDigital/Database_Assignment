@@ -225,7 +225,7 @@ a {
     }
 
     .page-shell {
-    padding: 44px 0;
+    padding: 30px 0;
     flex: 1;        
 }
 
@@ -252,7 +252,6 @@ a {
 .flash {
     padding: 14px 16px;
     border-radius: 14px;
-    margin-bottom: 12px;
     background: white;
     border: 1px solid var(--line);
     box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
@@ -272,7 +271,7 @@ a {
 
 .flash-warning {
     border-color: rgba(245, 158, 11, 0.45);
-  background: #991b1b;
+  background: #cb7a17;
     color: white
 }
 
@@ -364,7 +363,7 @@ a {
     gap: 16px;}
 
  .form-page {
-    min-height: 62vh;
+    min-height: 31vh;
     display:grid;
     place-items: center;
  }

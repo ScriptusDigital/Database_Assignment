@@ -89,25 +89,24 @@ def register():
         
         if not username or not email or not password:
          flash('Please fill out all fields.', 'danger')
-         return redirect(url_for('register'))
+         return render_template('register.html')
     
         if password != confirm_password:
             flash('Passwords do not match. Please try again.', 'danger')
-            return redirect(url_for('register'))
-    
+            return render_template('register.html')
         if len(password) < 6:
             flash('Password must be at least 6 characters long.', 'danger')
-            return redirect(url_for('register'))
-    
+            return render_template('register.html')
+
         existing_user = User.query.filter_by(email=email).first()
 
         if existing_user:
-         flash('Email already registered. Please log in.', 'danger')
+         flash('Email already registered. Please log in.', 'warning')
          return redirect(url_for('login'))
     
         if User.query.filter_by(username=username).first():
             flash('Username already taken. Please choose a different one.', 'danger')
-            return redirect(url_for('register'))    
+            return render_template('register.html')
     
         new_user = User(username=username, email=email)
         new_user.set_password(password)
@@ -122,8 +121,35 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+
+    if current_user.is_authenticated:
+        flash('You are already logged in.', 'info')
+        return redirect(url_for('dashboard'))
+    
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        print(f"EMAIL: {email}")
+        print(f"PASSWORD: {password}")  # Debugging line
+
+        user = User.query.filter_by(email=email).first()
+
+        print(f"USER: {user}")  # Debugging line
+
+        if user:
+            print(f"PASSWORD CHECK: {len(user.password_hash)}")  # Debugging line
+       
+            print(f"HASH LENGTH: {len(user.password_hash)  }")  # Debugging line
+        if user and user.check_password(password):
+            login_user(user)
+            flash('Login successful! Welcome back.', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid email or password. Please try again.', 'danger')
+
     return render_template('login.html')
 
 @app.route('/budget')
