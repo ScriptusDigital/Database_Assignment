@@ -17,6 +17,8 @@ https://www.w3schools.com/css/css3_variables.asp*/
         --bg: #0f172a;
         --muted: #64748b;
         --text: #172033;
+        --accent-dark: #0e766e;
+        --line: #e2e8f0;
     }
 
     body {
@@ -96,7 +98,6 @@ font-size: 0.85rem;
 
 a {
     color: inherit;
-
 }
 .nav-toggle span {
     display: block;
@@ -142,7 +143,8 @@ a {
 
     .hero-content,
     .hero-panel,
-    .feature-card {
+    .feature-card,
+    .form-card {
         background-color: rgba(255, 255,255,0.88);
         border: 1px solid rgba(226, 232, 250, 0.85);
         border-radius: var(--radius);
@@ -161,9 +163,11 @@ a {
         color: #0f172a;
     }
 
-    .hero-text {
+    .hero-text,
+    .form-intro {
         font-size: 1.1rem;
         line-height: 1.7;
+        color: var(--muted);
     }
 
     .eyebrow {
@@ -241,6 +245,36 @@ a {
     background: var(--bg)
 }
 
+.flash-wrapper {
+    margin-bottom: 24px;
+}
+
+.flash {
+    padding: 14px 16px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    background: white;
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+   
+}
+
+.flash-success {
+    border-color: rgba(22,163,74, 0.35);
+    background: #166534;
+    color: white
+}
+
+.flash-danger {
+    border-color: rgba(220,38,38, 0.35);
+    background: #991b1b;
+    color: white}
+
+.flash-warning {
+    border-color: rgba(245, 158, 11, 0.45);
+  background: #991b1b;
+    color: white
+}
 
     /*-----------Actions and buttons-----------*/
 .hero-actions {
@@ -283,6 +317,9 @@ a {
     color: #0f172a;
 }
 
+.full-width {
+    width: 100%;
+}
 
 
    /*-----------Navigation mobile elements -----------*/
@@ -321,3 +358,38 @@ a {
 
 }
 
+ /*-----------Registration Form-----------*/
+.stacked-form {
+    display: grid;
+    gap: 16px;}
+
+ .form-page {
+    min-height: 62vh;
+    display:grid;
+    place-items: center;
+ }
+
+ .form-card{
+    width: min(530px, 100%);
+    padding: 30px;
+ }
+
+ .form-card h1 {
+    margin: 0 0 8px;
+    letter-spacing: -0.04em;
+ }
+
+ .form-group {
+    display: grid;
+    gap: 7px;
+ }
+
+ .form-switch {
+    text-align: center;
+    color: var(--muted);
+ }
+
+  .form-switch a {
+    color: var(--accent-dark);
+    font-weight:700;
+ }

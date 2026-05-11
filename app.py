@@ -1,5 +1,57 @@
-from flask import Flask, render_template
+import os   
+
+from dotenv import load_dotenv
+
+
+from flask import (
+    Flask,
+    flash,
+    redirect, 
+    render_template,
+    request,
+    url_for
+)
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user
+)   
+from models import User, db
+
+load_dotenv()
+
 app = Flask(__name__)
+
+#====CONFIG====#
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+print(os.environ.get("DATABASE_URL"))
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False    
+
+#====DATABSE INIT====#
+db.init_app(app)
+
+with app.app_context():
+    db.create_all() 
+    print('Database tables created successfully.')  
+
+#====LOGIN MANAGER====#
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))     
+
+login_manager.login_view = 'login'
+login_manager.login_message = (
+    'Please log in to access your StudentPilot dashboard.'
+)
+
+#====ROUTES====#
 
 @app.route('/')
 def home():
@@ -18,10 +70,57 @@ def contact():
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+ 
+ #====USER REGISTRATION====#
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
+
+    if current_user.is_authenticated:
+        flash('You are already registered.', 'info')
+        return redirect(url_for('dashboard'))
+    
+    if request.method == 'POST':
+         
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password') 
+        confirm_password = request.form.get('confirm_password')
+        
+        if not username or not email or not password:
+         flash('Please fill out all fields.', 'danger')
+         return redirect(url_for('register'))
+    
+        if password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'danger')
+            return redirect(url_for('register'))
+    
+        if len(password) < 6:
+            flash('Password must be at least 6 characters long.', 'danger')
+            return redirect(url_for('register'))
+    
+        existing_user = User.query.filter_by(email=email).first()
+
+        if existing_user:
+         flash('Email already registered. Please log in.', 'danger')
+         return redirect(url_for('login'))
+    
+        if User.query.filter_by(username=username).first():
+            flash('Username already taken. Please choose a different one.', 'danger')
+            return redirect(url_for('register'))    
+    
+        new_user = User(username=username, email=email)
+        new_user.set_password(password)
+
+        db.session.add(new_user)
+        db.session.commit()             
+
+        flash('Registration successful! Please log in.', 'success')
+    
+        return redirect(url_for('login'))     
+      
     return render_template('register.html')
+
 
 @app.route('/login')
 def login():
@@ -37,4 +136,4 @@ def assignments():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)        
+    app.run(debug=True)        
