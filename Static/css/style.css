@@ -117,8 +117,6 @@ font-size: 0.85rem;
     /*-----------Navigation mobile elements -----------*/
 
 
-
-
 @media (max-width: 768px) {
     .nav-toggle {
         display: inline-flex;
@@ -140,3 +138,48 @@ font-size: 0.85rem;
     display:flex;
 }
 }
+
+
+    /*-----------Main Body Elemets -----------*/
+
+    .hero {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        align-items: center;
+        gap: 28px;
+        padding: 28px 0 42px
+    }
+
+
+    .hero-content,
+    .hero-panel {
+        background-color: rgba(255, 255,255,0.88);
+        border: 1px solid rgba(226, 232, 250, 0.85);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+    }       
+
+    .hero-content {
+        padding: clamp(28px, 5vw, 56px);
+    }
+
+    .hero h1 {
+        font-size: clamp(2.1rem, 5vw, 3.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+        margin: 0 0 18px;   
+        color: #0f172a;
+    }
+
+    .hero-text {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    .eye-brow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.85rem;
+        font-weight: 800 ;
+        margin: 0 0 12px;
+    }
