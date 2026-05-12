@@ -15,10 +15,15 @@ https://www.w3schools.com/css/css3_variables.asp*/
         --radius: 18px;
         --shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
         --bg: #0f172a;
+        --panel: #ffffff;
         --muted: #64748b;
         --text: #172033;
         --accent-dark: #0e766e;
         --line: #e2e8f0;
+        --warning: #f59e0b;
+        --success: #16a34a;
+        --panel-soft: #f8fafc;
+        --danger: #dc2626;
     }
 
     body {
@@ -33,6 +38,10 @@ https://www.w3schools.com/css/css3_variables.asp*/
         background: 
         radial-gradient(circle at top left, rgba(20, 184, 166, 0.08), transparent),
         linear-gradient(135deg, #eef6ff 0%, #f8fafc 44%, #ecfeff 100%)
+    }
+
+    html {
+        scroll-behavior: smooth;
     }
 
     /*-----------Header Build -----------*/
@@ -280,12 +289,69 @@ a {
     margin-bottom: 24px;
 }
 
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.panel-header a {
+    color: var(--accent-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
 .two-column {
     display: grid;
     grid-template-columns: 0.9fr 1fr;
     gap: 22px;
     align-items: start;
     margin-bottom: 24px;
+}
+
+.record-list {
+    display: grid;
+    gap: 14px;
+}
+
+.record-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--panel-soft);
+}
+
+.record-main h2 {
+    margin: 0 0 8px;
+}
+
+.record-main p {
+    margin: 0 0 8px;
+    color:var(--muted);
+}
+
+.record-actions {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    min-width: 150px;
+}
+
+.category-summary {
+    display: grid;
+    gap: 12px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
 }
 
     /*-----------FLASH MESSAGE STYLING-----------*/
@@ -372,6 +438,17 @@ a {
     width: 100%;
 }
 
+.btn-small {
+    padding: 8px 12px;
+    min-height: 34px;
+    font-size: 0.95rem;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
 
    /*-----------Navigation mobile elements -----------*/
 
@@ -415,6 +492,13 @@ a {
     .stat-grid  {
      grid-template-columns: 1fr;
 }
+
+    .record-card,
+    .panel-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
 
     .form-row {
         grid-template-columns: 1fr;
