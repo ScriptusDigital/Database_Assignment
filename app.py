@@ -134,8 +134,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        print(f"EMAIL: {email}")
-        print(f"PASSWORD: {password}")  # Debugging line
+  
 
         user = User.query.filter_by(email=email).first()
 
