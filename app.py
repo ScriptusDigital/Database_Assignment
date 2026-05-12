@@ -19,7 +19,7 @@ from flask_login import (
     login_user,
     logout_user
 )   
-from models import User, db
+from models import User, Expense, db
 
 load_dotenv()
 
@@ -162,7 +162,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
-@app.route('/budget')
+@app.route('/budget', methods=['GET', 'POST'] )
 @login_required
 def budget():
 
@@ -186,7 +186,7 @@ def budget():
             flash('Amount must be greater than zero.', 'danger')
             return render_template('budget.html')
         try:
-            expense_date = datetime.strptime(date_text, '%Y-%m-%d').date()
+            expense_date = datetime.datetime.strptime(date_text, '%Y-%m-%d').date()
         except ValueError:
             flash('Please enter a valid date in YYYY-MM-DD format.', 'danger')
             return render_template('budget.html')
