@@ -24,6 +24,7 @@ https://www.w3schools.com/css/css3_variables.asp*/
         --success: #16a34a;
         --panel-soft: #f8fafc;
         --danger: #dc2626;
+        --max-width:
     }
 
     body {
@@ -282,11 +283,11 @@ a {
 }
 
 .stat-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .panel {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
 }
 
 .panel-header {
@@ -309,6 +310,7 @@ a {
     gap: 22px;
     align-items: start;
     margin-bottom: 24px;
+    margin-top: 24px;
 }
 
 .record-list {
@@ -326,7 +328,7 @@ a {
     background: var(--panel-soft);
 }
 
-.record-main h2 {
+.record-main h3 {
     margin: 0 0 8px;
 }
 
@@ -404,7 +406,6 @@ a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     border: none;
     border-radius: 999px;
     padding: 11px 18px;
@@ -450,61 +451,7 @@ a {
 }
 
 
-   /*-----------Navigation mobile elements -----------*/
-
-
-@media (max-width: 768px) {
-    .nav-toggle {
-        display: inline-flex;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: rgba(15,23,42,0.96);
-        padding: 10px 20px;
-        border-radius: 8px;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links.open {
-    display:flex;
-}
-
-    .nav-links a {
-        display: block;
-        padding: 12px;
-    }
-
-    .hero,
-    .two-column {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-actions {
-        grid-template-columns: 1fr;
-    }   
-
-    .feature-grid,
-    .stat-grid  {
-     grid-template-columns: 1fr;
-}
-
-    .record-card,
-    .panel-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-
-    .form-row {
-        grid-template-columns: 1fr;
-}
-}
-
+  
  /*-----------Registration Form-----------*/
 .stacked-form {
     display: grid;
@@ -565,6 +512,60 @@ label {
 
    .input-error {
 border-color: #dc2626;
-outline: 2px solid rgbe (220, 38, 38, 0.18);
+outline: 2px solid rgba(220, 38, 38, 0.18);
    }
 
+ /*-----------Navigation mobile elements -----------*/
+
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: rgba(15,23,42,0.96);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.open {
+    display:flex;
+}
+
+    .nav-links a {
+        display: block;
+        padding: 12px;
+    }
+
+    .hero,
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-actions {
+        grid-template-columns: 1fr;
+    }   
+
+    .feature-grid,
+    .stat-grid  {
+     grid-template-columns: 1fr;
+}
+
+    .record-card,
+    .panel-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .form-row {
+        grid-template-columns: 1fr;
+}
+}

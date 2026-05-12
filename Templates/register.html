@@ -8,7 +8,7 @@
         <h1>Create Your Account</h1>
         <p class="form-intro">Register to start tracking your workload and budget</p>
 
-<form method="POST" class="stacked-form">
+<form method="POST" class="stacked-form" data-validate="true">
     <div class="form-group">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required value="{{request.form.get('username','')}}">

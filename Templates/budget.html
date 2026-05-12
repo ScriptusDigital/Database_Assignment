@@ -3,6 +3,7 @@
 
 
 {% block content %}
+<section class="page-heading">
  <p class="eyebrow">Budget</p>
 
  <h1>Track your student spending</h1>
@@ -16,7 +17,10 @@
     <article class="stat-card">
 
         <span> Total spending</span>
-INSERT TOTAL SPENDING - PLACEHOLDER
+
+        <strong>€{{ "%.2f"|format(total_spent) }}
+
+        </strong>
 
     </article>
 
@@ -24,7 +28,7 @@ INSERT TOTAL SPENDING - PLACEHOLDER
 
         <span> Expense Records</span>
 
-        INSERT EXPENSES - PLACEHOLDER
+        <strong>{{ expenses|length }} </strong>
 
     </article>
 
@@ -32,17 +36,18 @@ INSERT TOTAL SPENDING - PLACEHOLDER
 
         <span> Categories used</span>
 
-        INSERT CATEGORIES USED - PLACEHOLDER
+       <strong>{{ category_totals|length }}</strong>
     </article>
+    </section>
 
     <section class="two-column">
         <article class="panel">
 
             <h2> Add New Expense</h2>
 
-            PLACEHOLDER FOR EXPENSE FORM
 
 <form method="POST" class="stacked-form" data-validate="true">
+
     <div class="form-group">
         <label for="title">Expense Title</label>
         <input type="text" id="title" name="title" placeholder="Groceries, books, bus ticket..." required>
@@ -63,8 +68,8 @@ INSERT TOTAL SPENDING - PLACEHOLDER
     </div>
 
     <div class="form-row">
-        <div class="form-group"></div>
-        <label for="amount">Amount (£)</label>
+        <div class="form-group">
+        <label for="amount">Amount (€)</label>
         <input type="number" id="amount" name="amount" step="0.01" min="0.1" placeholder="0.00" required>
     </div>
 
@@ -77,8 +82,7 @@ INSERT TOTAL SPENDING - PLACEHOLDER
 
 <div class="form-group">
   <label for="notes">Notes (optional)</label>
-  <textarea id="notes" name="notes" rows="4" placeholder="Add any notes about this expense...">
-  </textarea>
+  <textarea id="notes" name="notes" rows="4" placeholder="Add any notes about this expense..."></textarea>
 </div>
 
 <button type="submit" class="btn btn-primary full-width">Add Expense</button>
@@ -90,49 +94,57 @@ INSERT TOTAL SPENDING - PLACEHOLDER
 
 <h2>Spending by category</h2>
 
-PLACEHOLDER FOR CATEGORY BREAKDOWN
-
-<div class="category-summary">
-
-    <div class="summary-row">
-
-        <span>PLACE HOLEDER OF CATEGORY</span>
-
-        <strong> PLACEHOLDER TOTAL FIELD</strong>
-
+{% if category_totals %}
+    <div class="category-summary">
+        {% for category, total in category_totals.items() %}
+            <div class="summary-row">
+                <span>{{ category }}</span>
+                <strong>€{{ '%.2f'|format(total) }}</strong>
+            </div>
+        {% endfor %}
     </div>
-
-
-<p class="empty-text">No spending categories yet</p>
-
+{% else %}
+    <p class="empty-text">No spending categories yet</p>
+{% endif %}
+</article>
     </section>
 
+    <section class="panel">
 <div class="panel-header">
     <h2>Expense History</h2>
 </div>
 
+{% if expenses %}
+
+
 <div class="record-list">
+
+    {% for expense in expenses %}
 
     <div class="record-card">
         <div class="record-main">
-            <span class="expense-title">PLACEHOLDER EXPENSE TITLE</span>
-            <span class="expense-category">PLACEHOLDER CATEGORY</span>
-        </div>
-        <div class="expense-meta">
-            <span class="expense-amount">£0.00</span>
-            <span class="expense-date">2024-01-01</span>
+           <h3>{{ expense.title }}</h3>
+           <p>{{ expense.category }} {{ expense.date}}
+           {%if expense.notes %}</p>
+               <p class="muted">{{ expense.notes }}</p>
+           {% endif %}
         </div>
 
-<div class="record-actions"></div>
-PLACE HOLDER FOR EDIT/DELETE ACTIONS
+<div class="record-actions">
+<strong>€{{ '%.2f'|format(expense.amount) }}</strong>
+<form method="POST" action="{{ url_for('delete_expense', expense_id=expense.id) }}" class="delete-form">
+
 <button type="submit" class="btn btn-danger btn-small">Delete</button>
 
     </form>
 </div>
 
     </div>
-
-
+{% endfor %}
+</div>
+{% else %}
+<p class="empty-text">No expenses recorded yet. Start adding your expenses to see them here.</p>
+{% endif %}
 
 </section>
 

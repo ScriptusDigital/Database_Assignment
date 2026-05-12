@@ -9,3 +9,46 @@ if (navToggle && navLinks) {
     );
 }
 });
+
+//Form delete confirmation script - prompts user to confirm before deleting a record
+
+const deleteForms = document.querySelectorAll('.delete-form');
+
+deleteForms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+        const confirmed = confirm('Are you sure you want to delete this record? This action cannot be undone.');
+        if (!confirmed) {
+            e.preventDefault();
+        }
+    });
+});
+
+
+
+
+
+
+//Form data validation script - checks required fields before sending to Flask
+
+const validateForms = document.querySelectorAll('form[data-validate="true"]');
+
+validateForms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+       const requiredFields = form.querySelectorAll("[required]");
+       let formisValid = true;
+
+       requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            formisValid = false;
+            field.classList.add('input-error');
+        } else {
+            field.classList.remove('input-error');
+        }
+       });
+
+       if (!formisValid) {
+        e.preventDefault();
+            alert('Please fill in all required fields.');
+       }
+    });
+});     

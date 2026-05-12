@@ -39,7 +39,7 @@ with app.app_context():
     db.create_all() 
     print('Database tables created successfully.')  
 
-#====LOGIN MANAGER====#
+#====LOGIN MANAGER====#\
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -162,6 +162,8 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
+ #====BUDGET==#
+
 @app.route('/budget', methods=['GET', 'POST'] )
 @login_required
 def budget():
@@ -203,11 +205,27 @@ def budget():
         flash('Expense added successfully!', 'success')
         return redirect(url_for('budget'))
 
+    expenses = Expense.query.filter_by(user_id=current_user.id).order_by(Expense.date.desc()).all()
+    total_spent = sum(expense.amount for expense in expenses)
+    category_totals = {}
+    for expense in expenses:
+        category_totals[expense.category] = category_totals.get(expense.category, 0) + expense.amount
+            
+    return render_template('budget.html', expenses=expenses, total_spent=total_spent, category_totals=category_totals)
 
+#====Expense deletion logic==#
+@app.route('/delete_expense/<int:expense_id>', methods=['POST'])
+@login_required
+def delete_expense(expense_id):
+    expense = Expense.query.get_or_404(expense_id)
+    if expense.user_id != current_user.id:
+        flash('You do not have permission to delete this expense.', 'danger')
+        return redirect(url_for('budget'))
+    db.session.delete(expense)
+    db.session.commit()
+    flash('Expense deleted successfully.', 'success')
+    return redirect(url_for('budget'))
 
-
-
-    return render_template('budget.html')
 
 @app.route('/assignments')
 def assignments():
