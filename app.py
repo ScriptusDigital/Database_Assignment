@@ -1,3 +1,4 @@
+import datetime
 import os   
 
 from dotenv import load_dotenv
@@ -162,7 +163,50 @@ def logout():
     return redirect(url_for('home'))
 
 @app.route('/budget')
+@login_required
 def budget():
+
+  #====Expenses input andlogic==#
+    if request.method == 'POST':
+        title = request.form.get('title')
+        category = request.form.get('category')
+        amount_text = request.form.get('amount')
+        date_text  = request.form.get('date')
+        notes = request.form.get('notes')
+
+        if not title or not category or not amount_text or not date_text:
+            flash('Please fill out all required fields.', 'danger')
+            return render_template('budget.html')
+        try:
+            amount = float(amount_text)
+        except ValueError:
+            flash('Please enter a valid number for amount.', 'danger')
+            return render_template('budget.html')
+        if amount <= 0:
+            flash('Amount must be greater than zero.', 'danger')
+            return render_template('budget.html')
+        try:
+            expense_date = datetime.strptime(date_text, '%Y-%m-%d').date()
+        except ValueError:
+            flash('Please enter a valid date in YYYY-MM-DD format.', 'danger')
+            return render_template('budget.html')
+        expense = Expense(
+            title=title,
+            category=category,
+            amount=amount,
+            date=expense_date,
+            notes=notes,
+            user_id=current_user.id
+        )
+        db.session.add(expense)
+        db.session.commit()
+        flash('Expense added successfully!', 'success')
+        return redirect(url_for('budget'))
+
+
+
+
+
     return render_template('budget.html')
 
 @app.route('/assignments')

@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()   
 
+#===USER REGISTRATION AND LOGIN MODELS===#
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     
@@ -15,6 +16,14 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(512), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+
+    expenses = db.relationship(
+        'Expense', 
+        backref='user', 
+        lazy=True,
+        cascade='all, delete-orphan',
+        )
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -23,3 +32,19 @@ class User(UserMixin, db.Model):
     
     def __repr__(self):
         return f'<User {self.username}>'
+    
+#===USER EXPENSE MODELS===#
+
+class Expense(db.Model):
+    __tablename__ = 'expenses'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    category = db.Column(db.String(100), nullable=False)
+    notes = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def __repr__(self):
+        return f'<Expense {self.amount} - {self.category}>'

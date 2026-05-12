@@ -130,12 +130,12 @@ a {
 
 
  
-    /*-----------Main Body Elemets -----------*/
+    /*-----------Main Body Elements -----------*/
 
     .hero {
         display: grid;
         grid-template-columns: 1.25fr 0.75fr;
-        align-items: center;
+        align-items: flex-start;
         gap: 28px;
         padding: 28px 0 42px
     }
@@ -144,8 +144,9 @@ a {
     .hero-content,
     .hero-panel,
     .feature-card,
-    .form-card
-    .stat-card {
+    .form-card,
+    .stat-card,
+    .panel {
         background-color: rgba(255, 255,255,0.88);
         border: 1px solid rgba(226, 232, 250, 0.85);
         border-radius: var(--radius);
@@ -223,7 +224,8 @@ a {
 
 
     .feature-card,
-    .stat-card {
+    .stat-card,
+    .panel {
         padding: 24px;
     }
 
@@ -274,7 +276,17 @@ a {
     grid-template-columns: repeat(4, 1fr);
 }
 
+.panel {
+    margin-bottom: 24px;
+}
 
+.two-column {
+    display: grid;
+    grid-template-columns: 0.9fr 1fr;
+    gap: 22px;
+    align-items: start;
+    margin-bottom: 24px;
+}
 
     /*-----------FLASH MESSAGE STYLING-----------*/
 .flash-wrapper {
@@ -390,7 +402,8 @@ a {
         padding: 12px;
     }
 
-    .hero {
+    .hero,
+    .two-column {
         grid-template-columns: 1fr;
     }
 
@@ -401,6 +414,10 @@ a {
     .feature-grid,
     .stat-grid  {
      grid-template-columns: 1fr;
+}
+
+    .form-row {
+        grid-template-columns: 1fr;
 }
 }
 
@@ -440,6 +457,12 @@ a {
     font-weight:700;
  }
 
+ .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+ }
+
  input, select, textarea {
    width: 100%;
    border: 1px solid #cbd5e1;
@@ -449,6 +472,9 @@ a {
    background: white;
    color: var(--text)}
 
+label {
+    font-weight: 700;
+}
    textarea {
     resize: vertical;
    }
@@ -457,3 +483,4 @@ a {
 border-color: #dc2626;
 outline: 2px solid rgbe (220, 38, 38, 0.18);
    }
+
