@@ -144,7 +144,8 @@ a {
     .hero-content,
     .hero-panel,
     .feature-card,
-    .form-card {
+    .form-card
+    .stat-card {
         background-color: rgba(255, 255,255,0.88);
         border: 1px solid rgba(226, 232, 250, 0.85);
         border-radius: var(--radius);
@@ -171,7 +172,8 @@ a {
         line-height: 1.7;
         color: var(--muted);
     }
-        .page-heading {
+
+    .page-heading {
             margin-bottom: 28px;
         }
 
@@ -210,12 +212,18 @@ a {
     }
 
     .feature-grid {
-        display: grid;
-        gap: 18px;
         grid-template-columns: repeat(3, 1fr);
     }
 
-    .feature-card {
+    .feature-grid ,
+    .stat-grid {
+        display: grid;
+        gap: 18px;
+    }
+
+
+    .feature-card,
+    .stat-card {
         padding: 24px;
     }
 
@@ -250,6 +258,25 @@ a {
     background: var(--bg)
 }
 
+.stat-card span{
+    display: block;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.stat-card strong {
+    display: block;
+    color: #0f172a;
+    font-size: 2rem;
+}
+
+.stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+
+    /*-----------FLASH MESSAGE STYLING-----------*/
 .flash-wrapper {
     margin: 24px auto
 }
@@ -358,6 +385,10 @@ a {
     display:flex;
 }
 
+    .nav-links a {
+        display: block;
+        padding: 12px;
+    }
 
     .hero {
         grid-template-columns: 1fr;
@@ -367,11 +398,10 @@ a {
         grid-template-columns: 1fr;
     }   
 
-    .feature-grid {
-    grid-template-columns: 1fr;
-    gap: 18px
+    .feature-grid,
+    .stat-grid  {
+     grid-template-columns: 1fr;
 }
-
 }
 
  /*-----------Registration Form-----------*/
@@ -409,3 +439,21 @@ a {
     color: var(--accent-dark);
     font-weight:700;
  }
+
+ input, select, textarea {
+   width: 100%;
+   border: 1px solid #cbd5e1;
+   border-radius: 12px;
+   padding: 12px 13px;
+   font:inherit;
+   background: white;
+   color: var(--text)}
+
+   textarea {
+    resize: vertical;
+   }
+
+   .input-error {
+border-color: #dc2626;
+outline: 2px solid rgbe (220, 38, 38, 0.18);
+   }
