@@ -236,6 +236,8 @@ def delete_expense(expense_id):
     return redirect(url_for('budget'))
 
 
+#====Assignment input logic==#
+
 @app.route('/assignments', methods=["GET", "POST"])
 @login_required
 def assignments():
@@ -276,6 +278,20 @@ def assignments():
         flash("Assignment added successfully", "success")
 
         return redirect(url_for("assignments"))
+    
+
+    #====Assignment query return into summary==#
+    selected_status = request.args.get("status")
+    query = Assignment.query.filter_by(user_id=current_user.id)
+    if selected_status:
+        query = query.filter_by(status=selected_status)
+    user_assignments = query.order_by(Assignment.due.date.asc()).all()
+    return render_template(
+            "assignments.html",
+            assignments=user_assignments,
+            selected_status=selected_status,
+    )
+
 
 
     return render_template('assignments.html')
