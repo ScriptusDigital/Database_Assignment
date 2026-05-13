@@ -75,44 +75,56 @@
 </select>
 
 </div>
- PLACE HOLDER PYTHON ASSIGNMENTS 
+
+{% if assignments %}
 
 <div class="record-list">
-    
-PLACE HOLDER PYTHON LIST
 
-<div class="record-card assignment-item">
+    {% for assignment in assignments %}
 
-    <div class="record-main"></div>
-    PLACEHOLDER TITLE
-    PLACEHOLDER Module
-    PLACEHOLDER DUE
+<div class="record-card assignment-item" data-status="{{ assignment.status }}">
 
-    <p>PLACEHOLDER NOTES</p>
+    <div class="record-main">
+   <h3>{{ assignment.title }}</h3>
+
+    <p>{{ assignment.module_name }}</p>
+
+    <p class="muted">Due {{ assignment.due_date.strftime("%d %b %Y") }}</p>
+  
+        {% if assignment.notes %}
+
+        <p>{{ assignment.notes }}</p>
+        {% endif %}
+
 
     <div class="badge-row">
-  PLACEHOLDER PRIOTY BADGE
-  PLACEHOLDER STATUS BADGE
+        <span class="badge badge-{{ assignment.priority|lower }}">{{ assignment.priority}}</span>
 
+         <span class="badge badge-neutral">{{ assignment.status}}
 
-
-    </div>
+         </span> 
+</div>
 </div>
 
-<div class="record-actions"></div>
- PLACEHOLDER ACTIONS 
+
+</div>
+
+<div class="record-actions">
+
 
 <button type="submit" class="btn btn-small">Update</button>
-</form>
-
- PLACEHOLDER DELETE ACTIONS 
 
 
+</div>
+</div>
+{% endfor %}
+</div>
 
+{% else %}
 
-</article>
+<p>No assignments added yet.</p>
 
-
+{% endif %}
 
 
 </section>

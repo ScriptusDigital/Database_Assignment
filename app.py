@@ -285,7 +285,7 @@ def assignments():
     query = Assignment.query.filter_by(user_id=current_user.id)
     if selected_status:
         query = query.filter_by(status=selected_status)
-    user_assignments = query.order_by(Assignment.due.date.asc()).all()
+    user_assignments = query.order_by(Assignment.due_date.asc()).all()
     return render_template(
             "assignments.html",
             assignments=user_assignments,
