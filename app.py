@@ -1,3 +1,4 @@
+
 import datetime
 import os   
 
@@ -29,17 +30,25 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-print(os.environ.get("DATABASE_URL"))
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False    
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False   
+
+#====CODE ADDED FOLLOWING NEON CONNECTION ISSUES====#
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+    "connect_args": {
+            "connect_timeout":10
+    }
+
+}
+           
 
 #====DATABSE INIT====#
+
 db.init_app(app)
 
-with app.app_context():
-    db.create_all() 
-    print('Database tables created successfully.')  
 
-#====LOGIN MANAGER====#\
+#====LOGIN MANAGER====#
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -83,7 +92,6 @@ def register():
         return redirect(url_for('dashboard'))
     
     if request.method == 'POST':
-         
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password') 
@@ -133,7 +141,7 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
+        remember = request.form.get("remember") == "on"
   
 
         user = User.query.filter_by(email=email).first()
@@ -145,7 +153,7 @@ def login():
        
             print(f"HASH LENGTH: {len(user.password_hash)  }")  # Debugging line
         if user and user.check_password(password):
-            login_user(user)
+            login_user(user, remember=remember)
             flash('Login successful! Welcome back.', 'success')
             return redirect(url_for('dashboard'))
         else:
@@ -232,4 +240,4 @@ def assignments():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)        
+    app.run(debug=True, port=5001)        

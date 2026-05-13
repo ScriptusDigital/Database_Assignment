@@ -164,7 +164,7 @@ a {
     }       
 
     .hero-content {
-        padding: clamp(28px, 5vw, 56px);
+        padding: 24px 28px 28px;
     }
 
     .hero h1,
@@ -193,17 +193,19 @@ a {
         letter-spacing: 0.14em;
         font-size: 0.85rem;
         font-weight: 800 ;
-        margin: 0 0 12px;
+        margin: 0 0 10px;
     }
 
     .hero-panel {
-        padding: 26px;
+        padding: 22px 26px 26px;
       background: #0f172a;
         color: #e2e8f0;
     }
 
     .hero-panel h2 {
-     margin-top:0;
+     margin-top:2px;
+     margin-bottom: 0px;
+     padding-left:4px;
     }
 
 
@@ -212,14 +214,14 @@ a {
         border: 1px solid rgba(255, 255,255,0.14);
         border-radius: 17px;
         padding: 16px;
-        margin-top: 14px;
+        margin-top: 12px;
     }
 
     .mini-card span {
         display: block;
         font-size: 0.85rem;
         color: #99f6e4;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
 
     .feature-grid {
@@ -514,6 +516,27 @@ label {
 border-color: #dc2626;
 outline: 2px solid rgba(220, 38, 38, 0.18);
    }
+
+small,
+.muted {
+    color: var(--muted);
+}
+
+
+ /*-----------Remember me checkbox-----------*/
+.checkbox-row {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--muted)
+}
+
+.checkbox-row input {
+    width: auto;
+}
+
+
+
 
  /*-----------Navigation mobile elements -----------*/
 
