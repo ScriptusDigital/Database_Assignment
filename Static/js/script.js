@@ -24,16 +24,17 @@ deleteForms.forEach(form => {
 });
 
 //Filter for assignments
+//Based on - https://www.geeksforgeeks.org/javascript/how-to-create-a-filter-list-using-javascript/
     const assignmentFilter = 
 document.querySelector("#assignmentFilter");
-    const assignmentItems = document.querySelectoryAll("assignment-item");
+    const assignmentItems = document.querySelectorAll(".assignment-item");
 
     if (assignmentFilter && assignmentItems.length > 0) {
         assignmentFilter.addEventListener("change", () => {
         const selectedStatus = assignmentFilter.value;
 
         assignmentItems.forEach((item) => {
-            const itemStatus = item.dataset.sttus;
+            const itemStatus = item.dataset.status;
 
             if (selectedStatus === "all" || itemStatus === selectedStatus) {
 
