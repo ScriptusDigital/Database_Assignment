@@ -234,8 +234,16 @@ def delete_expense(expense_id):
     return redirect(url_for('budget'))
 
 
-@app.route('/assignments')
+@app.route('/assignments',)
+@login_required
 def assignments():
+
+
+
+
+
+
+
     return render_template('assignments.html')
 
 
