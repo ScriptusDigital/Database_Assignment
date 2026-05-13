@@ -375,6 +375,9 @@ a {
     font-weight:800;
 }
 
+.hidden {
+    display: none;
+}
 
     /*-----------FLASH MESSAGE STYLING-----------*/
 .flash-wrapper {

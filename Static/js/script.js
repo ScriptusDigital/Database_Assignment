@@ -24,7 +24,27 @@ deleteForms.forEach(form => {
 });
 
 //Filter for assignments
+    const assignmentFilter = 
+document.querySelector("#assignmentFilter");
+    const assignmentItems = document.querySelectoryAll("assignment-item");
 
+    if (assignmentFilter && assignmentItems.length > 0) {
+        assignmentFilter.addEventListener("change", () => {
+        const selectedStatus = assignmentFilter.value;
+
+        assignmentItems.forEach((item) => {
+            const itemStatus = item.dataset.sttus;
+
+            if (selectedStatus === "all" || itemStatus === selectedStatus) {
+
+                item.classList.remove("hidden");
+            } else {
+                item.classList.add("hidden")
+            }
+        });
+            });
+        }
+    
 
 
 
