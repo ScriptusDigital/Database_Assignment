@@ -234,14 +234,40 @@ def delete_expense(expense_id):
     return redirect(url_for('budget'))
 
 
-@app.route('/assignments',)
+@app.route('/assignments', methods=["GET", "POST"])
 @login_required
 def assignments():
+    if request.method == "POST":
+        title = request.form.get('title')
+        module_name = request.form.get('module_name')
+        due_date_text = request.form.get('due_date') 
+        priority = request.form.get('priority', "Medium")
+        status = request.form.get('status', "Not started")
+        notes = request.form.get('notes')
+        if not title or not module_name or not due_date_text:
+            flash("Title, module name and due date are required.", "danger")
+            return redirect(url_for("assignments"))
+        try:
+            due_date = datetime.datetime.strptime(
+                due_date_text,
+                "%Y-%m-%d"
+                ).date()
+            
+        except ValueError:
+            flash("Please enter a date", "danger")
+            return redirect (url_for("assignments"))
+        
+        print ("Form done")
+        print (title)
+        print (module_name)
+        print (due_date)
+        print (priority)
+        print (status)
+        print (notes)
 
+        flash("good job", "succes")
 
-
-
-
+        return redirect(url_for("assignments"))
 
 
     return render_template('assignments.html')
