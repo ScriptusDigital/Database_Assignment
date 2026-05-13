@@ -4,10 +4,10 @@
 
 {% block content %}
 <section class="page-heading">
- <p class="eyebrow">Assignements</p>
+ <p class="eyebrow">Assignments</p>
 
  <h1>Manage your coursework</h1>
- <p>Add assigments, track their status and keep deadlines visible.</p>
+ <p>Add assignments, track their status and keep deadlines visible.</p>
 
 </section>
 
@@ -16,12 +16,73 @@
 <h2>Add assignment</h2>
 
 
+<form method="POST" class="stacked-form" data-validate="true">
+
+    <div class="form-group">
+        <label for="title">Assignment Title</label>
+        <input type="text" id="title" name="title" 
+        required>
+    </div>
+
+       <div class="form-group">
+        <label for="module_name">Module name</label>
+        <input type="text" id="module_name" name="module_name" 
+        required>
+    </div>
+
+      <div class="form-group">
+        <label for="due_date">Due date</label>
+        <input type="date" id="due_date" name="due_date" 
+        required>
+    </div>
+<div class="form-row">
+        <div class="form-group">
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority">
+            <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+        </select>
+    </div>
+
+
+
+        <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+            <option value="Not started">Not Started</option>
+                <option value="In progress" >In progress</option>
+                    <option value="Completed">Completed</option>
+        </select>
+    </div>
+      </div>
+  <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="4"></textarea> 
+    
+    </div>
+<button type="submit" class="btn btn-primary full-width">Add Assignment</button>
+</form>
+ </article>
+
+  <article class="panel">
+<div class="panel-header">
+            <h2>Your assignments</h2>
+<select id="assignmentFilter" class="small-select">
+    <option value="all"> All statuses       </option>
+       <option value="Not started"> Not started       </option>
+          <option value="In progress"> In progress       </option>
+             <option value="Completed">  Completed      </option>
+</select>
+
+</div>
+
+
+</article>
 
 
 
 
-
-    </article>
 </section>
 
-{endblock}
+{% endblock %}
