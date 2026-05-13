@@ -16,9 +16,17 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(512), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-
+#===LINK USER TO EXPENSE===#
     expenses = db.relationship(
         'Expense', 
+        backref='user', 
+        lazy=True,
+        cascade='all, delete-orphan',
+        )
+    
+#===LINK USER TO Assignment===#
+    assignments = db.relationship(
+        'Assignment', 
         backref='user', 
         lazy=True,
         cascade='all, delete-orphan',
@@ -33,7 +41,24 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
     
-#===USER EXPENSE MODELS===#
+ #===USER ASSIGNMENTS MODEL===#
+
+class Assignment(db.Model):
+    __tablename__ = "assignments"
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(160), nullable=False)
+    module_name = db.Column(db.String(120), nullable=False)
+    due_date = db.Column(db.Date, nullable=False)
+    priority = db.Column(db.String(30), default="Medium", nullable=False)
+    status = db.Column(db.String(30), default="Not started", nullable=False)
+    notes = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    def __repr__(self):
+        return f"<Assignment {self.title}>"
+    
+#===USER EXPENSE MODEL===#
 
 class Expense(db.Model):
     __tablename__ = 'expenses'
@@ -49,5 +74,4 @@ class Expense(db.Model):
 
     def __repr__(self):
         return f'<Expense {self.amount} - {self.category}>'
-    
     

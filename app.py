@@ -20,7 +20,7 @@ from flask_login import (
     login_user,
     logout_user
 )   
-from models import User, Expense, db
+from models import User, Expense, Assignment, db
 
 load_dotenv()
 
@@ -46,6 +46,8 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 #====DATABSE INIT====#
 
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 
 #====LOGIN MANAGER====#
@@ -257,15 +259,21 @@ def assignments():
             flash("Please enter a date", "danger")
             return redirect (url_for("assignments"))
         
-        print ("Form done")
-        print (title)
-        print (module_name)
-        print (due_date)
-        print (priority)
-        print (status)
-        print (notes)
+        assignment = Assignment(
+            title=title,
+            module_name=module_name,
+            due_date=due_date,
+            priority=priority,
+            status=status,
+            notes=notes,
+            user_id=current_user.id
+        )
 
-        flash("good job", "succes")
+        db.session.add(assignment)
+        db.session.commit()
+
+
+        flash("Assignment added successfully", "success")
 
         return redirect(url_for("assignments"))
 
