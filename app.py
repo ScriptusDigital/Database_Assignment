@@ -74,19 +74,34 @@ def home():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-        today = date.today()
-        next_week = today + timedelta(days = 7)
-        assignments = Assignments.query.filter_by(user_id=current_user.id).all()
-        expenses = Expense.query.filter_by(user_id=current_user.id).all()
-        total_assignments = len(assignments)
-        completed_assignments - sum(1 for item in assignments if item.status == "Completed")
-        pending_assignments = total_assignments - completed_assignments due_soon = (
-                Assignment.user_id ==current_user.id
-                Assignment
-                Assignment
-                Assignment
+    today = date.today()
+    next_week = today + timedelta(days=7)
+    assignments = Assignment.query.filter_by(user_id=current_user.id).all()
+    expenses = Expense.query.filter_by(user_id=current_user.id).all()
+    total_assignments = len(assignments)
+    completed_assignments = sum(1 for item in assignments if item.status == "Completed")
+    pending_assignments = total_assignments - completed_assignments 
+    due_soon = (
+        Assignment.query.filter(
+            Assignment.user_id ==current_user.id,
+            Assignment.status !="Completed",
+             Assignment.due_date >= today,
+             Assignment.due_date <= next_week,
         )
+        .order_by(Assignment.due_date.asc())
+        .all()
+    )
 
+    overdue = (
+        Assignment.query.filter(
+            Assignment.user_id ==current_user.id,
+            Assignment.status !="Completed",
+             Assignment.due_date >= today,
+             Assignment.due_date <= next_week,
+        )
+        .order_by(Assignment.due_date.asc())
+        .all()
+    )
 
 
 
