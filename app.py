@@ -60,7 +60,7 @@ def load_user(user_id):
 
 login_manager.login_view = 'login'
 login_manager.login_message = (
-    'Please log in to access your StudentPilot dashboard.'
+    'Please log in to access StudentPilot.'
 )
 
 #====ROUTES====#
@@ -148,7 +148,7 @@ def login():
             print(f"HASH LENGTH: {len(user.password_hash)  }")  # Debugging line
         if user and user.check_password(password):
             login_user(user, remember=remember)
-            flash(f'Welcome back, {user.username}', 'success')
+            flash(f'Welcome back, {user.username}.', 'success')
             return redirect(url_for('dashboard'))
         else:
             flash('Invalid email or password. Please try again.', 'danger')

@@ -24,7 +24,7 @@ https://www.w3schools.com/css/css3_variables.asp*/
         --success: #16a34a;
         --panel-soft: #f8fafc;
         --danger: #dc2626;
-        --max-width:
+        --max-width:1200px;
     }
 
     body {
@@ -295,7 +295,7 @@ a {
 .panel-header {
     display:flex;
     flex-direction: column;
-    align-items: centre;
+    align-items: center;
 }
 
 .panel-header a {
@@ -480,9 +480,10 @@ a {
 
 .small-select {
 border-radius:999px;
-padding: 8px 12px;
+padding: 8px 36px 8px 12px;
 font-size: 0.9rem;
 margin-bottom: 6px;
+padding-right: 10px;
 }
 
   
@@ -512,15 +513,7 @@ margin-bottom: 6px;
     gap: 7px;
  }
 
- .form-switch {
-    text-align: center;
-    color: var(--muted);
- }
 
-  .form-switch a {
-    color: var(--accent-dark);
-    font-weight:700;
- }
 
  .form-row {
     display: grid;
@@ -528,14 +521,39 @@ margin-bottom: 6px;
     gap: 14px;
  }
 
- input, select, textarea {
+ input, textarea {
    width: 100%;
    border: 1px solid #cbd5e1;
    border-radius: 12px;
-   padding: 12px 13px;
+   padding: 7px 10px;
    font:inherit;
    background: white;
+
    color: var(--text)}
+
+select {width: 100%;
+   border: 1px solid #cbd5e1;
+   border-radius: 12px;
+   padding: 12px 36px 12px 16px;
+     font:inherit;
+   background-color: white;
+   color: var(--text);
+
+   appearance: none;
+   -webkit-appearance: none;
+   background-image: 
+   linear-gradient(45deg, transparent 50%, #475569 50%),
+   linear-gradient(135deg, #475569 50%, transparent 50%);
+
+   background-position: 
+    calc(100% - 16px) 50%,
+      calc(100% - 11px) 50%;
+
+background-size: 5px 5px;
+background-repeat: no-repeat;
+
+}
+
 
 label {
     font-weight: 700;
