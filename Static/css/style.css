@@ -276,17 +276,24 @@ a {
     display: block;
     color: var(--muted);
     margin-bottom: 8px;
+
 }
 
 .stat-card strong {
     display: block;
     color: #0f172a;
     font-size: 2rem;
+  
+}
+
+.stat-card {
+    text-align: center;
 }
 
 .stat-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat( 4, 1fr);
 }
+
 
 .panel {
     margin-bottom: 10px;

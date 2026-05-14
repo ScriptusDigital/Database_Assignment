@@ -14,32 +14,32 @@
 
 <section class="stat-grid">
     <article class="stat-card">
-       <span>Total assignements</span> 
+       <span>Total assignments</span> 
        <strong>
-PLACEHOLDER - CALCULATE TOTAL ASSIGNMENTS
+{{ total_assignments }}
        </strong> 
     </article>
 
       <article class="stat-card">
-               <span>Completed</span> 
+               <span>Completed Assignments</span> 
        <strong>
-PLACEHOLDER - Complete Assignemnts
+{{ completed_assignments }}
        </strong> 
     </article>
 
 
       <article class="stat-card">
-               <span>Pending</span> 
+               <span>Pending Assignments</span> 
        <strong>
-PLACEHOLDER - Pending assignemnts
+{{ pending_assignments }}
        </strong> 
     </article>
 
       <article class="stat-card">
          <span>Total Spending</span> 
-       <strong>
-PLACEHOLDER - Spending so far
-       </strong> 
+ 
+ <strong>€{{ '%.2f'|format(total_spending) }}</strong>
+
     </article>
 </section>
 
