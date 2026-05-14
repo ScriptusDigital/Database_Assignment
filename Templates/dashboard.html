@@ -49,17 +49,52 @@
         <div class="panel-header">
             <h2>Due soon</h2>
             <a href="{{ url_for('assignments')}}">Manage assignments</a>
-
-
         </div>
+        {% if due_soon %}
+        <ul class="clean-list">
+            {% for assignment in due_soon %}
+            <li>
+                <div>
+                    <strong>{{ assignment.title }}</strong>
+                    <span>{{ assignment.module_name }}</span> due 
+                    {{ assignment.due_date.strftime("%d %b %Y") }}
+                </div>
+                <span class="badge badge-{{ assignment.priority|lower }}">
+                    {{ assignment.priority }}</span>
+  
+            </li>
+            {% endfor %}
+
+        </ul>
+        {% else %}
+        <p class="empty-text">No assignments due in the next seven days</p>
+    {% endif %}
+
           </article>
 
       <article class="panel">
         <div class="panel-header">
             <h2>Overdue</h2>
+            <a href="{{ url_for('assignments') }}">View all</a>
+        </div>
+        {% if overdue %}
+        <ul class="clean-list">
+             {% for assignment in overdue %}
+            <li>
+                <div>
+                    <strong>{{ assignment.title }}</strong>
+                    <span>{{ assignment.module_name }} was due {{ assignment.due_date.strftime("%d %b %Y") }}
+                 
+                    </span>
+                </div>
+<span class="badge badge-danger">Overdue</span>
 
-          PLACEHOLDER - Sort assigment by expired date
-
+            </li>
+            {% endfor %}
+        </ul>
+           {% else %}
+ <p class="empty-text">No overdue assigments. Lucky you</p>
+ {% endif %}
                   </article>
                   </section>
 
@@ -67,6 +102,24 @@
 <section class="panel">
       <div class="panel-header">
             <h2>Recent expenses</h2>
+<a href="{{ url_for('budget') }}">Manage budget</a>
+</div>
+{% if recent_expenses %}
+<ul class="clean-list">
+    {% for expense in recent_expenses %}
+    <li>
+        <div>
+            <strong>{{ expense.title }}</strong>
+            <span>{{ expense.category }} {{ expense.date.strftime("%d %b %Y") }} </span>
+        </div>
+        <span>€{{ "%.2f"|format(expense.amount) }}</span>
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+<p class="empty-text">No expenses added yet.</p>
+{% endif %}
+
   </section>
 
 {% endblock %}  
