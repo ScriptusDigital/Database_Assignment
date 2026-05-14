@@ -69,11 +69,29 @@ login_manager.login_message = (
 def home():
  return render_template('home.html')
 
-
+#====DASHBOARD LOGIC====#
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
+        today = date.today()
+        next_week = today + timedelta(days = 7)
+        assignments = Assignments.query.filter_by(user_id=current_user.id).all()
+        expenses = Expense.query.filter_by(user_id=current_user.id).all()
+        total_assignments = len(assignments)
+        completed_assignments - sum(1 for item in assignments if item.status == "Completed")
+        pending_assignments = total_assignments - completed_assignments due_soon = (
+                Assignment.user_id ==current_user.id
+                Assignment
+                Assignment
+                Assignment
+        )
+
+
+
+
+
+
     return render_template('dashboard.html')
  
  #====USER REGISTRATION====#
