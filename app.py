@@ -96,8 +96,7 @@ def dashboard():
         Assignment.query.filter(
             Assignment.user_id ==current_user.id,
             Assignment.status !="Completed",
-             Assignment.due_date >= today,
-             Assignment.due_date <= next_week,
+             Assignment.due_date < today,
         )
         .order_by(Assignment.due_date.asc())
         .all()
@@ -235,7 +234,7 @@ def budget():
             flash('Amount must be greater than zero.', 'danger')
             return render_template('budget.html')
         try:
-            expense_date = datetime.datetime.strptime(date_text, '%Y-%m-%d').date()
+            expense_date = datetime.strptime(date_text, '%Y-%m-%d').date()
         except ValueError:
             flash('Please enter a valid date in YYYY-MM-DD format.', 'danger')
             return render_template('budget.html')
@@ -290,7 +289,7 @@ def assignments():
             flash("Title, module name and due date are required.", "danger")
             return redirect(url_for("assignments"))
         try:
-            due_date = datetime.datetime.strptime(
+            due_date = datetime.strptime(
                 due_date_text,
                 "%Y-%m-%d"
                 ).date()
