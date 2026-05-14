@@ -7,38 +7,39 @@
   <div class="hero-content">
     <p class="eyebrow">Student planning without the worry</p>
     <h1>Track your assigments, spending and study life in one place. </h1>
-<p class="hero-text">StudentPilot is a Flask and PostgreSQL web app designed to help students organizse deadlines and expenses from a simple personal dashboard.</p>
+    <p class="hero-text">StudentPilot is a Flask and PostgreSQL web app designed to help students organizse deadlines
+      and expenses from a simple personal dashboard.</p>
 
- <div class="hero-actions">
-  
- <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+    <div class="hero-actions">
 
- <a href="{{ url_for('register') }}" class="btn btn-primary">Create Account</a>
+      <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
 
-  <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+      <a href="{{ url_for('register') }}" class="btn btn-primary">Create Account</a>
 
+      <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+
+    </div>
   </div>
+
+  <div class="hero-panel">
+    <h2>Features</h2>
+    <div class="mini-card">
+      <span>Assigment tracking</span>
+      <strong> Add coursework, due dates, module names, priorities and completion status </strong>
     </div>
 
-<div class="hero-panel">
-  <h2>Features</h2>
-  <div class="mini-card">
-    <span>Assigment tracking</span>
-  <strong> Add coursework, due dates, module names, priorities and completion status </strong>
-</div>
+    <div class="mini-card">
+      <span>Budget tracking</span>
+      <strong> Record your expenses and stay within your budget. Get insights into your spending habits. </strong>
+    </div>
 
-<div class="mini-card">
-<span>Budget tracking</span>
-  <strong> Record your expenses and stay within your budget. Get insights into your spending habits. </strong>
-</div>
-
-<div class="mini-card">
-<span>Personal Dashboard</span>
-  <strong> View eupcoming deadlines, overdue assignemnts and recent expenses in one place.</strong>
-</div>
-</div>
+    <div class="mini-card">
+      <span>Personal Dashboard</span>
+      <strong> View eupcoming deadlines, overdue assignemnts and recent expenses in one place.</strong>
+    </div>
+  </div>
 </section>
 
 
-      
-{% endblock %}  
+
+{% endblock %}

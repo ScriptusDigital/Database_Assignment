@@ -4,10 +4,10 @@
 
 {% block content %}
 <section class="page-heading">
- <p class="eyebrow">Budget</p>
+    <p class="eyebrow">Budget</p>
 
- <h1>Track your student spending</h1>
- <p>Record all your expenses and stay within your budget.</p>
+    <h1>Track your student spending</h1>
+    <p>Record all your expenses and stay within your budget.</p>
 
 </section>
 
@@ -36,115 +36,115 @@
 
         <span> Categories used</span>
 
-       <strong>{{ category_totals|length }}</strong>
+        <strong>{{ category_totals|length }}</strong>
     </article>
-    </section>
+</section>
 
-    <section class="two-column">
-        <article class="panel">
+<section class="two-column">
+    <article class="panel">
 
-            <h2> Add New Expense</h2>
-
-
-<form method="POST" class="stacked-form" data-validate="true">
-
-    <div class="form-group">
-        <label for="title">Expense Title</label>
-        <input type="text" id="title" name="title" placeholder="Groceries, books, bus ticket..." required>
-    </div>
-
-    <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" name="category" required>
-            <option value="">Select a category</option>
-            <option value="Rent">Rent</option>
-            <option value="Food">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Books">Books</option>
-            <option value="Subscriptions">Subscriptions</option>
-            <option value="Social">Social</option>
-            <option value="Other">Other</option>
-        </select>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
-        <label for="amount">Amount (€)</label>
-        <input type="number" id="amount" name="amount" step="0.01" min="0.1" placeholder="0.00" required>
-    </div>
+        <h2> Add New Expense</h2>
 
 
-    <div class="form-group">
-        <label for="date">Date</label>
-        <input type="date" id="date" name="date" required>
-    </div>
-</div>
+        <form method="POST" class="stacked-form" data-validate="true">
 
-<div class="form-group">
-  <label for="notes">Notes (optional)</label>
-  <textarea id="notes" name="notes" rows="4" placeholder="Add any notes about this expense..."></textarea>
-</div>
+            <div class="form-group">
+                <label for="title">Expense Title</label>
+                <input type="text" id="title" name="title" placeholder="Groceries, books, bus ticket..." required>
+            </div>
 
-<button type="submit" class="btn btn-primary full-width">Add Expense</button>
-</form>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Books">Books</option>
+                    <option value="Subscriptions">Subscriptions</option>
+                    <option value="Social">Social</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
 
-        </article>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="amount">Amount (€)</label>
+                    <input type="number" id="amount" name="amount" step="0.01" min="0.1" placeholder="0.00" required>
+                </div>
 
-<article class="panel"> 
 
-<h2>Spending by category</h2>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+            </div>
 
-{% if category_totals %}
-    <div class="category-summary">
-        {% for category, total in category_totals.items() %}
+            <div class="form-group">
+                <label for="notes">Notes (optional)</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Add any notes about this expense..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary full-width">Add Expense</button>
+        </form>
+
+    </article>
+
+    <article class="panel">
+
+        <h2>Spending by category</h2>
+
+        {% if category_totals %}
+        <div class="category-summary">
+            {% for category, total in category_totals.items() %}
             <div class="summary-row">
                 <span>{{ category }}</span>
                 <strong>€{{ '%.2f'|format(total) }}</strong>
             </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-text">No spending categories yet</p>
+        {% endif %}
+    </article>
+</section>
+
+<section class="panel">
+    <div class="panel-header">
+        <h2>Expense History</h2>
+    </div>
+
+    {% if expenses %}
+
+
+    <div class="record-list">
+
+        {% for expense in expenses %}
+
+        <div class="record-card">
+            <div class="record-main">
+                <h3>{{ expense.title }}</h3>
+                <p>{{ expense.category }} {{ expense.date}}
+                    {%if expense.notes %}</p>
+                <p class="muted">{{ expense.notes }}</p>
+                {% endif %}
+            </div>
+
+            <div class="record-actions">
+                <strong>€{{ '%.2f'|format(expense.amount) }}</strong>
+                <form method="POST" action="{{ url_for('delete_expense', expense_id=expense.id) }}" class="delete-form">
+
+                    <button type="submit" class="btn btn-danger btn-small">Delete</button>
+
+                </form>
+            </div>
+
+        </div>
         {% endfor %}
     </div>
-{% else %}
-    <p class="empty-text">No spending categories yet</p>
-{% endif %}
-</article>
-    </section>
-
-    <section class="panel">
-<div class="panel-header">
-    <h2>Expense History</h2>
-</div>
-
-{% if expenses %}
-
-
-<div class="record-list">
-
-    {% for expense in expenses %}
-
-    <div class="record-card">
-        <div class="record-main">
-           <h3>{{ expense.title }}</h3>
-           <p>{{ expense.category }} {{ expense.date}}
-           {%if expense.notes %}</p>
-               <p class="muted">{{ expense.notes }}</p>
-           {% endif %}
-        </div>
-
-<div class="record-actions">
-<strong>€{{ '%.2f'|format(expense.amount) }}</strong>
-<form method="POST" action="{{ url_for('delete_expense', expense_id=expense.id) }}" class="delete-form">
-
-<button type="submit" class="btn btn-danger btn-small">Delete</button>
-
-    </form>
-</div>
-
-    </div>
-{% endfor %}
-</div>
-{% else %}
-<p class="empty-text">No expenses recorded yet. Start adding your expenses to see them here.</p>
-{% endif %}
+    {% else %}
+    <p class="empty-text">No expenses recorded yet. Start adding your expenses to see them here.</p>
+    {% endif %}
 
 </section>
 

@@ -4,127 +4,133 @@
 
 {% block content %}
 <section class="page-heading">
- <p class="eyebrow">Assignments</p>
+    <p class="eyebrow">Assignments</p>
 
- <h1>Manage your coursework</h1>
- <p>Add assignments, track their status and keep deadlines visible.</p>
+    <h1>Manage your coursework</h1>
+    <p>Add assignments, track their status and keep deadlines visible.</p>
 
 </section>
 
 <section class="two-column">
     <article class="panel">
-<h2>Add assignment</h2>
+        <h2>Add assignment</h2>
 
 
-<form method="POST" class="stacked-form" data-validate="true">
+        <form method="POST" class="stacked-form" data-validate="true">
 
-    <div class="form-group">
-        <label for="title">Assignment Title</label>
-        <input type="text" id="title" name="title" 
-        required>
-    </div>
+            <div class="form-group">
+                <label for="title">Assignment Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
 
-       <div class="form-group">
-        <label for="module_name">Module name</label>
-        <input type="text" id="module_name" name="module_name" 
-        required>
-    </div>
+            <div class="form-group">
+                <label for="module_name">Module name</label>
+                <input type="text" id="module_name" name="module_name" required>
+            </div>
 
-      <div class="form-group">
-        <label for="due_date">Due date</label>
-        <input type="date" id="due_date" name="due_date" 
-        required>
-    </div>
-    
-<div class="form-row">
-        <div class="form-group">
-        <label for="priority">Priority</label>
-        <select id="priority" name="priority">
-            <option value="Low">Low</option>
-                <option value="Medium" selected>Medium</option>
-                    <option value="High">High</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <label for="due_date">Due date</label>
+                <input type="date" id="due_date" name="due_date" required>
+            </div>
 
-        <div class="form-group">
-        <label for="status">Status</label>
-        <select id="status" name="status">
-            <option value="Not started">Not Started</option>
-                <option value="In progress" >In progress</option>
-                    <option value="Completed">Completed</option>
-        </select>
-    </div>
-      </div>
-  <div class="form-group">
-        <label for="notes">Notes</label>
-        <textarea id="notes" name="notes" rows="4"></textarea> 
-    
-    </div>
-<button type="submit" class="btn btn-primary full-width">Add Assignment</button>
-</form>
- </article>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
 
-  <article class="panel">
-<div class="panel-header">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="Not started">Not Started</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <textarea id="notes" name="notes" rows="4"></textarea>
+
+            </div>
+            <button type="submit" class="btn btn-primary full-width">Add Assignment</button>
+        </form>
+    </article>
+
+    <article class="panel">
+        <div class="panel-header">
             <h2>Your assignments</h2>
-<select id="assignmentFilter" class="small-select">
-    <option value="all"> All statuses       </option>
-       <option value="Not started"> Not started       </option>
-          <option value="In progress"> In progress       </option>
-             <option value="Completed">  Completed      </option>
-</select>
-</div>
+            <select id="assignmentFilter" class="small-select">
+                <option value="all"> All statuses </option>
+                <option value="Not started"> Not started </option>
+                <option value="In progress"> In progress </option>
+                <option value="Completed"> Completed </option>
+            </select>
+        </div>
 
-{% if assignments %}
+        {% if assignments %}
 
-<div class="record-list">
+        <div class="record-list">
 
-    {% for assignment in assignments %}
+            {% for assignment in assignments %}
 
-<div class="record-card assignment-item" data-status="{{ assignment.status }}">
+            <div class="record-card assignment-item" data-status="{{ assignment.status }}">
 
-    <div class="record-main">
-   <h3>{{ assignment.title }}</h3>
+                <div class="record-main">
+                    <h3>{{ assignment.title }}</h3>
 
-    <p>{{ assignment.module_name }}</p>
+                    <p>{{ assignment.module_name }}</p>
 
-    <p class="muted">Due {{ assignment.due_date.strftime("%d %b %Y") }}</p>
-  
-        {% if assignment.notes %}
+                    <p class="muted">Due {{ assignment.due_date.strftime("%d %b %Y") }}</p>
 
-        <p>{{ assignment.notes }}</p>
-        {% endif %}
+                    {% if assignment.notes %}
 
-
-    <div class="badge-row">
-        <span class="badge badge-{{ assignment.priority|lower }}">{{ assignment.priority}}</span>
-
-         <span class="badge badge-neutral">{{ assignment.status}}
-
-         </span> 
-</div>
-</div>
+                    <p>{{ assignment.notes }}</p>
+                    {% endif %}
 
 
+                    <div class="badge-row">
+                        <span class="badge badge-{{ assignment.priority|lower }}">{{ assignment.priority}}</span>
+
+                        <span class="badge badge-neutral">{{ assignment.status}}
+
+                        </span>
+                    </div>
+                </div>
 
 <div class="record-actions">
+<form method="POST" action="{{ url_for('update_assignment_status', assignment_id=assignment.id) }}">
+    <select name="status" class="small-select">
+        <option value="Not started" {% if assignment.status == "Not started" %} selected{% endif %}>Not started</option>
+        <option value="In progress" {% if assignment.status == "In progess" %} selected{% endif %}>In progress</option>
+        <option value="Complete" {% if assignment.status == "Completed" %} selected{% endif %}>Completed</option>
 
+        </select>
 
-<button type="submit" class="btn btn-small">Update</button>
+            <button type="submit" class="btn btn-small">Update</button>
+             </form>
 
+    <form method="POST" action=" {{ url_for('delete_assignment', assignment_id=assignment.id )}}" class="delete-form">
 
-</div>
-</div>
-{% endfor %}
-</div>
+    <button type="submit" class="btn btn-danger btn-small">Delete</button>
+             </form>
 
-{% else %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
 
-<p>No assignments added yet.</p>
+        {% else %}
 
-{% endif %}
+        <p class="empty-text">No assignments added yet.</p>
 
+        {% endif %}
 
+    </article>
 </section>
 
 {% endblock %}

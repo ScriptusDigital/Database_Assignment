@@ -222,7 +222,7 @@ def budget():
             
     return render_template('budget.html', expenses=expenses, total_spent=total_spent, category_totals=category_totals)
 
-#====Expense deletion logic==#
+#====Expense deletion logic - CRUD ==#
 @app.route('/delete_expense/<int:expense_id>', methods=['POST'])
 @login_required
 def delete_expense(expense_id):
@@ -293,8 +293,37 @@ def assignments():
     )
 
 
+#====Update and delete function for assignement cards - CRUD FUNCTION==#
+#===Based on elements of https://flask-sqlalchemy.readthedocs.io/en/stable/queries==#
+#=== and https://bdavison.napier.ac.uk/web/flask/basics/crud==#
+@app.route("/assignment/<int:assignment_id>/status", methods=["POST"])
+@login_required
+def update_assignment_status(assignment_id):
+    assignment = Assignment.query.get_or_404(assignment_id)
+    if assignment.user_id != current_user.id:
+            flash("Not today, pal. You don't have permission to update this assignment.", "danger")
+            return redirect(url_for("assignments"))
+    new_status = request.form.get("status", "Not started")
+    assignment.status = new_status
+    db.session.commit()
+    flash ("Well done, bucko. Assignment status updated.", "success")
+    return redirect(url_for("assignments"))
 
-    return render_template('assignments.html')
+@app.route("/assignment/<int:assignment_id>/delete", methods=["POST"])
+@login_required
+def delete_assignment(assignment_id):
+        assignment = Assignment.query.get_or_404(assignment_id)
+        if assignment.user_id != current_user.id:
+            flash("You do not have permission to delete this assignment", "danger")
+            return redirect(url_for("assignments"))
+        db.session.delete(assignment)
+        db.session.commit()
+        flash("Assignment torched.", "success")
+        return redirect(url_for("assignments"))
+
+
+
+   
 
 
 if __name__ == '__main__':
