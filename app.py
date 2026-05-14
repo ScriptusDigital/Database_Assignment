@@ -1,6 +1,6 @@
-
-import datetime
 import os   
+from datetime import date, datetime, timedelta
+
 
 from dotenv import load_dotenv
 
@@ -103,11 +103,24 @@ def dashboard():
         .all()
     )
 
+    total_spending = sum(expense.amount for expense in expenses)
+    recent_expenses = (
+        Expense.query.filter_by(user_id=current_user.id)
+        .order_by(Expense.date.desc())
+        .limit(5)
+        .all()
+        )
 
-
-
-
-    return render_template('dashboard.html')
+    return render_template('dashboard.html',
+ #====Dashboard summary definitions====#
+    total_assignments=total_assignments,
+    completed_assignments=completed_assignments,
+    pending_assignments=pending_assignments,
+    due_soon=due_soon,
+    overdue=overdue,
+    total_spending=total_spending,
+    recent_expenses=recent_expenses,
+    )
  
  #====USER REGISTRATION====#
 
