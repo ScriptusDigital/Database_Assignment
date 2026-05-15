@@ -127,7 +127,6 @@ def dashboard():
 def register():
 
     if current_user.is_authenticated:
-        flash('You are already registered.', 'info')
         return redirect(url_for('dashboard'))
     
     if request.method == 'POST':

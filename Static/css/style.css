@@ -376,10 +376,34 @@ a {
 .badge {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     border-radius: 999px;
+    white-space: nowrap;
     padding: 5px 10px;
     font-size: 0.78rem;
     font-weight:800;
+}
+
+.badge-low {
+    background: #dcfce7;
+    color: #166534
+}
+
+
+.badge-medium {
+    background: #fef3c7;
+    color: #92400e
+}
+
+.badge-high, 
+.badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-neutral {
+    background: #e2e8f0;
+    color: #334155
 }
 
 .hidden {
@@ -390,6 +414,31 @@ a {
     color: var(--muted);
     line-height: 1.6;
 }
+
+.clean-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.clean-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+}
+
+.clean-list li:last-child {
+    border-bottom: 0;
+}
+
+.clean-list span {
+    display: block;
+    color: var(--muted);
+    margin-top: 4px
+}
+
 
     /*-----------FLASH MESSAGE STYLING-----------*/
 .flash-wrapper {
@@ -639,7 +688,8 @@ small,
 }
 
     .record-card,
-    .panel-header {
+    .panel-header,
+    .clean-list li {
         flex-direction: column;
         align-items: stretch;
     }
