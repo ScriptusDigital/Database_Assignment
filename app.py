@@ -359,7 +359,7 @@ def delete_assignment(assignment_id):
 @app.route('/timetable')
 @login_required
 def timetable():
-   return redirect(url_for('timetable'))
+   return render_template('timetable.html')
 
 
 if __name__ == '__main__':

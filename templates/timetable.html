@@ -4,6 +4,78 @@
 {% block content %}
 
 
+<section class="page-heading">
+    <p class="eyebrow">Timetable</p>
+
+    <h1>Plan your study week</h1>
+    <p>Click a slot to fill the form, then save your class to the database</p>
+
+</section>
+
+<section class="two-column">
+
+    <article class="panel">
+        <h2>Add timetable entry</h2>
+
+        <div class="form-group">
+            <label>Module name</label>
+            <input type="text" placeholder="Databases, Web Development..." required>
+        </div>
+
+<div class="form-group">
+    <label>Class type</label>
+                <select>
+                    <option value="Select type">Select type</option>
+                    <option value="Lecture">Lecture</option>
+                    <option value="Tutorial">Tutorial</option>
+                    <option value="Lab">Lab</option>
+                    <option value="Seminar">Seminar</option>
+                     <option value="Study session">Study session</option>
+                    <option value="Other">Other</option>
+</div>
+
+   
+<div class="form-group">
+    <label>Day</label>
+    <select>
+         <option value="Select day">Select type</option>
+
+PLACEHOLDER FOR FORM>POST INPUT
+    </select>
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+    <label>Start time</label>
+        <input type="time" required>
+            </div>
+
+            <div class="form-group">
+                  <label>End time</label>
+        <input type="time" required>
+            </div>
+
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" placeholder="Room, campus, online...">
+                </div>
+
+            
+            <div class="form-group">
+              <label>Notes</label>
+              <textarea rows="4" placeholder="Add any notes about this timeslot...">
+                </div>
+
+                <button type="submit" class="btn btn-primary full-width">Save Entry</button>
+
+            </form>
+     </article>
 
 
-{% end block %}
+
+     
+</section>
+
+
+{% endblock %}
