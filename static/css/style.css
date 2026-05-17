@@ -639,7 +639,6 @@ small,
 
 
 
-
  /*-----------Navigation mobile elements -----------*/
 
 
@@ -696,3 +695,31 @@ small,
 }
 }
 
+ /*-----------Weekly Calendar -----------*/
+
+ .calendar-week-scroll {
+    overflow-x: auto;
+ }
+
+ .calendar-week-grid {
+    display: grid;
+    grid-template-columns: 80px repeat (5, minmax(170px, 1fr));
+    min-width: 960px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: white;
+    overflow: hidden;
+ }
+
+ .calendar-heading {
+    background: #0f172a;
+    color: white;
+    font-weight: 800;
+    text-align: center;
+    padding: 14px 10px;
+    border-right: 1 px solid rgba(255, 255,255,0.12)
+ }
+
+  .calendar-time-heading {
+    text-align: left;
+  }

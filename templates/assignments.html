@@ -106,7 +106,7 @@
 <form method="POST" action="{{ url_for('update_assignment_status', assignment_id=assignment.id) }}">
     <select name="status" class="small-select">
         <option value="Not started" {% if assignment.status == "Not started" %} selected{% endif %}>Not started</option>
-        <option value="In progress" {% if assignment.status == "In progess" %} selected{% endif %}>In progress</option>
+        <option value="In progress" {% if assignment.status == "In progress" %} selected{% endif %}>In progress</option>
         <option value="Complete" {% if assignment.status == "Completed" %} selected{% endif %}>Completed</option>
 
         </select>
