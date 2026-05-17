@@ -355,9 +355,11 @@ def delete_assignment(assignment_id):
         flash("Assignment torched.", "success")
         return redirect(url_for("assignments"))
 
-
-
-   
+#====Timetable route and logic==#
+@app.route('/timetable')
+@login_required
+def timetable():
+   return redirect(url_for('timetable'))
 
 
 if __name__ == '__main__':

@@ -28,6 +28,7 @@
         {% if current_user.is_authenticated %}
 
         <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{url_for('timetable')}}">Timetable</a></li>
         <li><a href="{{ url_for('assignments') }}">Assignments</a></li>
         <li><a href="{{ url_for('budget') }}">Budget</a></li>
         <li><a href="{{url_for('logout')}}">Logout</a></li>
