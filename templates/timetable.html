@@ -19,6 +19,7 @@
  <button type="button" class="btn btn-primary full-small" id=openTimetableModal>+ Add Entry</button>
 
         </div>
+        
 
         <div class="calendar-week-scroll">
             <div class="calendar-week-grid">
@@ -36,29 +37,9 @@
 
     {% for day in days %}
 
-                    <div class="calendar-cell">
+              
 
-                        <button
-
-                            type="button"
-
-                            class="calendar-slot"
-
-                            data-day="{{ day }}"
-
-                            data-start="{{ slot }}"
-
-                            data-end="{{ slot }}">
-
-                            +
-
-                        </button>
-
-                    </div>
-
-                {% endfor %}
-
-            {% endfor %}
+      
 
         </div>
 

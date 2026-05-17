@@ -359,16 +359,82 @@ def delete_assignment(assignment_id):
 @app.route('/timetable', methods=['GET', 'POST'])
 @login_required
 def timetable():
-    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-    time_slots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00","15:00" ,"16:00","17:00"] 
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    time_slots = ["08:00",
+                  "09:00", 
+                  "10:00", 
+                  "11:00", 
+                  "12:00", 
+                  "13:00", 
+                  "14:00",
+                  "15:00" ,
+                  "16:00",
+                  "17:00"] 
     
+    if request.method =='POST':
+        module_name = request.form.get("module_name")
+        class_type = request.form.get("class_type")
+        day_of_week = request.form.get("day_of_week")
+        start_time_text = request.form.get("start_time")
+        end_time_text = request.form.get("end_time")
+        location = request.form.get("location")
+        notes = request.form.get("notes")
 
+        if not module_name or not class_type or not day_of_week or not start_time_text or not end_time_text:
+
+            flash("Module name, class type, day and times are required.", "danger")
+            return redirect(url_for("timetable"))
+        
+                
+        if day_of_week not in days:
+
+            flash("Please choose a valid weekday.", "danger")
+            return redirect(url_for("timetable"))
+
+        try:
+            start_time = datetime.strptime(start_time_text, "%H:%M").time()
+            end_time = datetime.strptime(end_time_text, "%H:%M").time()
+
+        except ValueError:
+                flash("Please enter valid times.", "danger")
+                return redirect(url_for("timetable"))
+        
+        if end_time <= start_time:
+                flash("End time must be after start time", "danger")
+                return redirect(url_for("timetable"))
+        
+        entry = TimetableEntry(
+            module_name=module_name,
+            class_type=class_type,
+            day_of_week=day_of_week,
+            start_time=start_time,
+            end_time=end_time,
+            location=location,
+            notes=notes,
+            user_id=current_user.id,
+        )
+
+        db.session.add(entry)
+        db.session.commit()
+        flash("Timetable entry added successfully", "success")
+        return redirect(url_for("timetable"))
+
+    entries_by_day = {}
+    for day in days:
+            entries_by_day[day] = (
+                TimetableEntry.query
+                .filter_by(user_id=current_user.id, day_of_week=day)
+                .order_by(TimetableEntry.start_time.asc())
+                .all()
+
+            )
 
 
     
     return render_template("timetable.html",
     days=days,
     time_slots=time_slots,
+    entries_by_day=entries_by_day
 )
 
 
