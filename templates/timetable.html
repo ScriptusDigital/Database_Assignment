@@ -34,16 +34,37 @@
             
              <div class="calendar-time-label">{{ slot }}</div>
 
-  {% endfor %}
+    {% for day in days %}
 
+                    <div class="calendar-cell">
 
+                        <button
 
+                            type="button"
 
+                            class="calendar-slot"
 
+                            data-day="{{ day }}"
 
-            </div>
+                            data-start="{{ slot }}"
+
+                            data-end="{{ slot }}">
+
+                            +
+
+                        </button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endfor %}
+
         </div>
 
+    </div>
+
+</section>
 
 <section class="two-column">
 

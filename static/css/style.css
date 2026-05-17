@@ -699,11 +699,13 @@ small,
 
  .calendar-week-scroll {
     overflow-x: auto;
+    width: 100%;
+    padding-bottom: 8px;
  }
 
  .calendar-week-grid {
     display: grid;
-    grid-template-columns: 80px repeat (5, minmax(170px, 1fr));
+    grid-template-columns: 80px repeat(5, minmax(170px, 1fr));
     min-width: 960px;
     border: 1px solid var(--line);
     border-radius: 16px;
