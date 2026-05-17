@@ -444,7 +444,7 @@ def delete_timetable_entry(entry_id):
 
     if entry.user_id != current_user.id:
         flash("You do not have permission to delete this timetable entry", "danger")
-        return redirect(url_for("timetable"))
+        return redirect(url_for("timetable"))   
 
     db.session.delete(entry)
     db.session.commit()

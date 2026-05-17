@@ -40,7 +40,7 @@
         <div class="calendar-cell">
             {% set ns = namespace(found=false) %}
             {% for entry in entries_by_day[day] %}
-                {% if entry.start_strftime("%H:%M") == slot %}
+                {% if entry.start_time.strftime("%H:%M") == slot %}
 
 
                  {% set ns.found = true %}
@@ -65,31 +65,32 @@
 </form>
         {% endif %}
   {% endfor %}
-    {% endfor %}
-      {% endfor %}
-        
-        
-        
+    {% if not ns.found %}
 
+        {% set end_hour = slot[:2]|int + 1 %}
+     {% set end_time = "%02d:00"|format(end_hour) %}
+     <button type="button" class="calendar-slot" data-day="{{ day }}" data-start="{{ slot }}" data-end="{{ end_time }}">
+     +
+        </button>
+
+      {% endif %}
+
+       </div>
+    {% endfor %} 
+                    
+    {% endfor %} 
+        
+        
+ </div>
                  </div>
-
-
-
-
-
-
-
-
-
-        </div>
-
-      
-
-        </div>
-
-    </div>
-
 </section>
+ 
+
+
+
+
+
+
 
 <section class="two-column">
 
