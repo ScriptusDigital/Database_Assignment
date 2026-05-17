@@ -359,7 +359,13 @@ def delete_assignment(assignment_id):
 @app.route('/timetable')
 @login_required
 def timetable():
-   return render_template('timetable.html')
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    time_slots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00","15:00" ,"16:00","17:00"] 
+    
+    return render_template("timetable.html",
+    days=days,
+    times_slots=time_slots,
+)
 
 
 if __name__ == '__main__':

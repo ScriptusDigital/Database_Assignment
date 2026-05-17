@@ -77,4 +77,4 @@ class Expense(db.Model):
     
 
 
- #===USER TIMTABLE MODEL===#
+ #===USER ASSIGNMENTS MODEL===#

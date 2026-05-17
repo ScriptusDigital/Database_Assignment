@@ -76,3 +76,8 @@ validateForms.forEach(form => {
         }
     });
 });     
+
+
+//TIMETable script - for popup and prefills
+
+const timetableModal = document.querySelector('#timetableModal')

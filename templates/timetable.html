@@ -12,6 +12,39 @@
 
 </section>
 
+    <section class="panel">
+        <div class="panel-header">
+            <h2>Weekly calendar</h2>
+
+ <button type="button" class="btn btn-primary full-small" id=openTimetableModal>+ Add Entry</button>
+
+        </div>
+
+        <div class="calendar-week-scroll">
+            <div class="calendar-week-grid">
+                <div class="calendar-heading calendar-time-heading">Time</div>
+
+{% for day in days %}
+
+            <div class="calendar-heading">{{ day }}</div>
+
+                {% endfor %}
+
+  {% for slot in time_slots %}
+            
+             <div class="calendar-time-label">{{ slot }}</div>
+
+  {% endfor %}
+
+
+
+
+
+
+            </div>
+        </div>
+
+
 <section class="two-column">
 
     <article class="panel">
@@ -68,21 +101,9 @@ PLACEHOLDER FOR FORM>POST INPUT
                 </div>
             
 
-                <button type="submit" class="btn btn-primary full-width">Save Entry</button>
 
             </form>
      </article>
-
-    <section class="panel">
-        <div class="panel-header">
-            <h2>Weekly calendar</h2>
-        </div>
-        <div class="calendar-week-scroll">
-            <div class="calendar-week-grid">
-                <div class="calendar-heading calendar-time-heading">Time</div>
-
-            </div>
-        </div>
 
 
 
