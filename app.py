@@ -400,7 +400,7 @@ def timetable():
                 return redirect(url_for("timetable"))
         
         if end_time <= start_time:
-                flash("End time must be after start time", "danger")
+                flash("End time must be after start time.", "danger")
                 return redirect(url_for("timetable"))
         
         entry = TimetableEntry(
@@ -416,7 +416,7 @@ def timetable():
 
         db.session.add(entry)
         db.session.commit()
-        flash("Timetable entry added successfully", "success")
+        flash("Timetable entry added successfully.", "success")
         return redirect(url_for("timetable"))
 
     entries_by_day = {}
@@ -428,15 +428,34 @@ def timetable():
                 .all()
 
             )
-
-
     
     return render_template("timetable.html",
     days=days,
     time_slots=time_slots,
-    entries_by_day=entries_by_day
+    entries_by_day=entries_by_day,
 )
+
+
+ #===USER TIMETABLE DELETE LOGIC===#
+@app.route('/timetable/<int:entry_id>/delete', methods=['POST'])
+@login_required
+def delete_timetable_entry(entry_id):
+    entry = TimetableEntry.query.get_or_404(entry_id)
+
+    if entry.user_id != current_user.id:
+        flash("You do not have permission to delete this timetable entry", "danger")
+        return redirect(url_for("timetable"))
+
+    db.session.delete(entry)
+    db.session.commit()
+
+    flash("Timetable entry deleted", "success")
+    return redirect(url_for("timetable"))
+
 
 
 if __name__ == '__main__':
     app.run(debug=True, port=5002)        
+
+
+    

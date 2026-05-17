@@ -87,8 +87,7 @@ class Expense(db.Model):
     
 
 
- #===USER Timetable MODEL===#
-
+ #===USER TIMETABLE MODEL===#
 
 
 class TimetableEntry(db.Model):
