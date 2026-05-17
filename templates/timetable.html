@@ -37,7 +37,51 @@
 
     {% for day in days %}
 
-              
+        <div class="calendar-cell">
+            {% set ns = namespace(found=false) %}
+            {% for entry in entries_by_day[day] %}
+                {% if entry.start_strftime("%H:%M") == slot %}
+
+
+                 {% set ns.found = true %}
+
+                 <div class="calendar-event">
+                    <strong>{{ entry.module_name }}</strong>
+                    <span>{{ entry.class_type }}</span>
+
+            <span>{{ entry.start_time.strftime("%H:%M") }} - 
+                {{ entry.end_time.strftime("%H:%M") }}
+            </span>
+
+            {% if entry.location %}
+            <span> {{ entry.location }}</span>
+
+                   {% endif %}
+
+<form method="POST" action="{{ url_for('delete_timetable_entry', entry_id=entry.id) }}" class="delete-form">
+
+    <button type="submit" class="calendar-delete">Delete</button>
+
+</form>
+        {% endif %}
+  {% endfor %}
+    {% endfor %}
+      {% endfor %}
+        
+        
+        
+
+                 </div>
+
+
+
+
+
+
+
+
+
+        </div>
 
       
 

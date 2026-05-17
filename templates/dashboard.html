@@ -56,8 +56,8 @@
             <li>
                 <div>
                     <strong>{{ assignment.title }}</strong>
-                    <span>{{ assignment.module_name }}</span>-due 
-                    {{ assignment.due_date.strftime("%d %b %Y") }}
+                    <span>{{ assignment.module_name }} · due 
+                    {{ assignment.due_date.strftime("%d %b %Y") }}</span> 
                 </div>
                 <span class="badge badge-{{ assignment.priority|lower }}">
                     {{ assignment.priority }}</span>
@@ -83,7 +83,7 @@
             <li>
                 <div>
                     <strong>{{ assignment.title }}</strong>
-                    <span>{{ assignment.module_name }} -was due {{ assignment.due_date.strftime("%d %b %Y") }}
+                    <span>{{ assignment.module_name }} · was due {{ assignment.due_date.strftime("%d %b %Y") }}
                  
                     </span>
                 </div>
