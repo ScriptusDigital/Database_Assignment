@@ -20,7 +20,7 @@ from flask_login import (
     login_user,
     logout_user
 )   
-from models import User, Expense, Assignment, db
+from models import User, Expense, Assignment, TimetableEntry, db
 
 load_dotenv()
 
@@ -48,7 +48,7 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 db.init_app(app)
 with app.app_context():
     db.create_all()
-
+    print("Database tables created successfully.")
 
 #====LOGIN MANAGER====#
 login_manager = LoginManager()
@@ -356,17 +356,21 @@ def delete_assignment(assignment_id):
         return redirect(url_for("assignments"))
 
 #====Timetable route and logic==#
-@app.route('/timetable')
+@app.route('/timetable', methods=['GET', 'POST'])
 @login_required
 def timetable():
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     time_slots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00","15:00" ,"16:00","17:00"] 
     
+
+
+
+    
     return render_template("timetable.html",
     days=days,
-    times_slots=time_slots,
+    time_slots=time_slots,
 )
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)        
+    app.run(debug=True, port=5002)        
