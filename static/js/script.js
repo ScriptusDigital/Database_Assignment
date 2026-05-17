@@ -81,7 +81,6 @@ validateForms.forEach(form => {
 //TIMETable script - for popup and prefills
 
 const timetableModal = document.querySelector('#timetableModal')
-const openTimetableModal = document.querySelector('#openTimetableModal')
 const closeTimetableModal = document.querySelector('#closeTimetableModal')
 const cancelTimetableModal = document.querySelector('#cancelTimetableModal')
 const calendarSlots = document.querySelectorAll ('.calendar-slot');
@@ -113,11 +112,6 @@ function hideTimetableModal() {
 }
 
 
-if (openTimetableModal) {
-    openTimetableModal.addEventListener('click', () => {
-        showTimetableModal();
-    });
-}
 
 if (closeTimetableModal) {
     closeTimetableModal.addEventListener('click', hideTimetableModal);
