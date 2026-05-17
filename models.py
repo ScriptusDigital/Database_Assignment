@@ -43,7 +43,7 @@ class User(UserMixin, db.Model):
     
 
     #===LINK USER TO Assignment===#
-    timetables_entries = db.relationship(
+    timetable_entries = db.relationship(
         "TimetableEntry",
         backref='user', 
         lazy=True,
