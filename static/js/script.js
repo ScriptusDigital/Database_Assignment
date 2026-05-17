@@ -85,6 +85,10 @@ const openTimetableModal = document.querySelector('#openTimetableModal')
 const closeTimetableModal = document.querySelector('#closeTimetableModal')
 const cancelTimetableModal = document.querySelector('#cancelTimetableModal')
 const calendarSlots = document.querySelectorAll ('.calendar-slot');
+const dayInput = document.querySelector('#day_of_week')
+const startInput = document.querySelector('#start_time')
+const endInput = document.querySelector('#end_time')
+const moduleInput = document.querySelector('#module_name')
 
 
 
@@ -109,7 +113,6 @@ function hideTimetableModal() {
 }
 
 
-
 if (openTimetableModal) {
     openTimetableModal.addEventListener('click', () => {
         showTimetableModal();
@@ -127,6 +130,28 @@ if (cancelTimetableModal) {
 
     calendarSlots.forEach(slot => {
         slot.addEventListener('click', () => {
+            if (dayInput && startInput && endInput) {
+                dayInput.value = slot.dataset.day;
+                startInput.value = slot.dataset.start;
+                endInput.value = slot.dataset.end;
+        }
+
         showTimetableModal();
     });
+    });
+
+    //Easier user experience on click away
+
+    if (timetableModal) {
+        timetableModal.addEventListener('click', (event) => {
+        if (event.target === timetableModal) {
+            hideTimetableModal();
+        }
+        });
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            hideTimetableModal();
+        }
     });
