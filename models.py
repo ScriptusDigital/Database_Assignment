@@ -41,6 +41,16 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
     
+
+    #===LINK USER TO Assignment===#
+    timetables_entries = db.relationship(
+        "TimetableEntry",
+        backref='user', 
+        lazy=True,
+        cascade='all, delete-orphan',
+        )
+    
+    
  #===USER ASSIGNMENTS MODEL===#
 
 class Assignment(db.Model):
@@ -77,4 +87,25 @@ class Expense(db.Model):
     
 
 
- #===USER ASSIGNMENTS MODEL===#
+ #===USER Timetable MODEL===#
+
+
+
+class TimetableEntry(db.Model):
+    __tablename__ = "timetable_entries"
+
+    id = db.Column(db.Integer, primary_key=True)
+    module_name = db.Column(db.String(120), nullable=False)
+    class_type = db.Column(db.String(50), nullable=False)
+    day_of_week = db.Column(db.String(20), nullable=False)
+    start_time =  db.Column(db.Time, nullable=False) 
+    end_time =  db.Column(db.Time, nullable=False) 
+    location = db.Column(db.String(150), nullable=False)
+    notes = db.Column(db.Text)
+    
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    def __repr__(self):
+
+     #===For debug==#   
+        return f"<TimetableEntry {self.module_name} - {self.day_of_week}>"

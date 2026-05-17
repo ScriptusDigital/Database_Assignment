@@ -724,4 +724,21 @@ small,
     text-align: left;
   }
 
+  .calendar-time-label {
+    background: var(--panel-soft);
+    color: var(--muted);
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 14px 10px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+.calendar-cell {
+    min-height: 96px;
+    padding: 8px;
+        border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: white
+}
   
