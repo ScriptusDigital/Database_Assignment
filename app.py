@@ -183,12 +183,11 @@ def login():
 
         user = User.query.filter_by(email=email).first()
 
-        print(f"USER: {user}")  # Debugging line
 
-        if user:
-            print(f"PASSWORD CHECK: {len(user.password_hash)}")  # Debugging line
+
+        
        
-            print(f"HASH LENGTH: {len(user.password_hash)  }")  # Debugging line
+            
         if user and user.check_password(password):
             login_user(user, remember=remember)
             flash(f'Welcome back, {user.username}.', 'success')
@@ -222,20 +221,20 @@ def budget():
 
         if not title or not category or not amount_text or not date_text:
             flash('Please fill out all required fields.', 'danger')
-            return render_template('budget.html')
+            return redirect(url_for('budget'))
         try:
             amount = float(amount_text)
         except ValueError:
             flash('Please enter a valid number for amount.', 'danger')
-            return render_template('budget.html')
+            return redirect(url_for('budget'))
         if amount <= 0:
             flash('Amount must be greater than zero.', 'danger')
-            return render_template('budget.html')
+            return redirect(url_for('budget'))
         try:
             expense_date = datetime.strptime(date_text, '%Y-%m-%d').date()
         except ValueError:
             flash('Please enter a valid date in YYYY-MM-DD format.', 'danger')
-            return render_template('budget.html')
+            return redirect(url_for('budget'))
         expense = Expense(
             title=title,
             category=category,
@@ -336,12 +335,12 @@ def assignments():
 def update_assignment_status(assignment_id):
     assignment = Assignment.query.get_or_404(assignment_id)
     if assignment.user_id != current_user.id:
-            flash("Not today, pal. You don't have permission to update this assignment.", "danger")
+            flash("You don't have permission to update this assignment.", "danger")
             return redirect(url_for("assignments"))
     new_status = request.form.get("status", "Not started")
     assignment.status = new_status
     db.session.commit()
-    flash ("Well done, bucko. Assignment status updated.", "success")
+    flash ("Well done. Assignment status updated.", "success")
     return redirect(url_for("assignments"))
 
 @app.route("/assignment/<int:assignment_id>/delete", methods=["POST"])
