@@ -84,6 +84,9 @@ const timetableModal = document.querySelector('#timetableModal')
 const openTimetableModal = document.querySelector('#openTimetableModal')
 const closeTimetableModal = document.querySelector('#closeTimetableModal')
 const cancelTimetableModal = document.querySelector('#cancelTimetableModal')
+const calendarSlots = document.querySelectorAll ('.calendar-slot');
+
+
 
 function showTimetableModal() {
     if (timetableModal) {
@@ -97,8 +100,33 @@ function showTimetableModal() {
 }
 
 
+function hideTimetableModal() {
+    if (timetableModal) {
+    timetableModal.classList.remove('open');
+    timetableModal.setAttribute('aria-hidden', 'true');
+
+}
+}
+
+
+
 if (openTimetableModal) {
     openTimetableModal.addEventListener('click', () => {
         showTimetableModal();
     });
 }
+
+if (closeTimetableModal) {
+    closeTimetableModal.addEventListener('click', hideTimetableModal);
+    }
+
+
+if (cancelTimetableModal) {
+    cancelTimetableModal.addEventListener('click', hideTimetableModal);
+    }
+
+    calendarSlots.forEach(slot => {
+        slot.addEventListener('click', () => {
+        showTimetableModal();
+    });
+    });
