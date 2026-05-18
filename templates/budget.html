@@ -12,9 +12,8 @@
 </section>
 
 
-<section class="stat-grid">
-
-    <article class="stat-card">
+<div class="stat-grid">
+    <div class="stat-card">
 
         <span> Total spending</span>
 
@@ -22,26 +21,26 @@
 
         </strong>
 
-    </article>
+    </div>
 
-    <article class="stat-card">
+    <div class="stat-card">
 
         <span> Expense Records</span>
 
         <strong>{{ expenses|length }} </strong>
 
-    </article>
+    </div>
 
-    <article class="stat-card">
+    <div class="stat-card">
 
         <span> Categories used</span>
 
         <strong>{{ category_totals|length }}</strong>
-    </article>
-</section>
+    </div>
+</div>
 
-<section class="two-column">
-    <article class="panel">
+<div class="two-column">
+    <div class="panel">
 
         <h2> Add New Expense</h2>
 
@@ -88,8 +87,8 @@
             <button type="submit" class="btn btn-primary full-width">Add Expense</button>
         </form>
 
-    </article>
- <div class="dashboard-stack"></article>
+    </div>
+ <div class="dashboard-stack">
     <article class="panel">
 
         <h2>Spending by category</h2>
@@ -109,7 +108,7 @@
     </article>
 
 
-<section class="panel">
+<article class="panel">
     <div class="panel-header">
         <h2>Expense History</h2>
     </div>
@@ -124,8 +123,8 @@
         <div class="record-card">
             <div class="record-main">
                 <h3>{{ expense.title }}</h3>
-                <p>{{ expense.category }} - {{ expense.date}}
-                    {%if expense.notes %}</p>
+                <p>{{ expense.category }} - {{ expense.date}}</p>
+                    {%if expense.notes %}
                 <p class="muted">{{ expense.notes }}</p>
                 {% endif %}
             </div>
@@ -145,8 +144,9 @@
     {% else %}
     <p class="empty-text">No expenses recorded yet. Start adding your expenses to see them here.</p>
     {% endif %}
-</article>
+
+    </article>
+ </div>
 </div>
-</section>
 
 {% endblock %}
