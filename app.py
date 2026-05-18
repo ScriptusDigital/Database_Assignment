@@ -346,10 +346,16 @@ def assignments():
 
     #====Assignment query return into summary==#
     selected_status = request.args.get("status")
+    allowed_statuses = ["Not started", "In progress", "Completed"]
+    
     query = Assignment.query.filter_by(user_id=current_user.id)
-    if selected_status:
+    if selected_status in allowed_statuses:
         query = query.filter_by(status=selected_status)
-    user_assignments = query.order_by(Assignment.due_date.asc()).all()
+    else: 
+        selected_status = None
+    
+        user_assignments = query.order_by(Assignment.due_date.asc()).all()
+    
     return render_template(
             "assignments.html",
             assignments=user_assignments,
@@ -364,6 +370,7 @@ def assignments():
 @login_required
 def update_assignment_status(assignment_id):
     assignment = Assignment.query.get_or_404(assignment_id)
+   
     if assignment.user_id != current_user.id:
             flash("You don't have permission to update this assignment.", "danger")
             return redirect(url_for("assignments"))
