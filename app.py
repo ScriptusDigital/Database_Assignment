@@ -130,12 +130,12 @@ def register():
         return redirect(url_for('dashboard'))
     
     if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password') 
-        confirm_password = request.form.get('confirm_password')
+        username = request.form.get('username', "").strip()
+        email = request.form.get('email', "").strip().lower()
+        password = request.form.get('password', "")
+        confirm_password = request.form.get('confirm_password', "")
         
-        if not username or not email or not password:
+        if not username or not email or not password or not confirm_password:
          flash('Please fill out all fields.', 'danger')
          return render_template('register.html')
     
@@ -155,6 +155,7 @@ def register():
         if User.query.filter_by(username=username).first():
             flash('Username already taken. Please choose a different one.', 'danger')
             return render_template('register.html')
+        
     
         new_user = User(username=username, email=email)
         new_user.set_password(password)
@@ -176,8 +177,8 @@ def login():
         return redirect(url_for('dashboard'))
     
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
         remember = request.form.get("remember") == "on"
   
 
@@ -213,15 +214,30 @@ def budget():
 
   #====Expenses input andlogic==#
     if request.method == 'POST':
-        title = request.form.get('title')
-        category = request.form.get('category')
-        amount_text = request.form.get('amount')
-        date_text  = request.form.get('date')
-        notes = request.form.get('notes')
+        title = request.form.get('title', '').strip()
+        category = request.form.get('category', '').strip()
+        amount_text = request.form.get('amount', '').strip()
+        date_text  = request.form.get('date', '').strip()
+        notes = request.form.get('notes', '').strip()
 
         if not title or not category or not amount_text or not date_text:
             flash('Please fill out all required fields.', 'danger')
             return redirect(url_for('budget'))
+        
+        allowed_categories = [
+            "Rent",
+            "Food",
+            "Transport",
+            "Books",
+            "Subscriptions",
+            "Social",
+            "Other",
+        ]
+
+        if category not in allowed_categories:
+            flash('Please choose a valid category.','danger')
+            return redirect(url_for('budget'))
+
         try:
             amount = float(amount_text)
         except ValueError:
@@ -276,14 +292,28 @@ def delete_expense(expense_id):
 @login_required
 def assignments():
     if request.method == "POST":
-        title = request.form.get('title')
-        module_name = request.form.get('module_name')
-        due_date_text = request.form.get('due_date') 
-        priority = request.form.get('priority', "Medium")
-        status = request.form.get('status', "Not started")
-        notes = request.form.get('notes')
+        title = request.form.get('title', '').strip()
+        module_name = request.form.get('module_name', '').strip()
+        due_date_text = request.form.get('due_date', '').strip()
+        notes = request.form.get('notes', '').strip()
+        priority = request.form.get('priority', "Medium").strip()
+        status = request.form.get('status', "Not started").strip()
+        
+
+        allowed_priorities = ["Low","Medium","High"]
+        allowed_statuses = ["Not started","In progress","Completed"]
+
+
         if not title or not module_name or not due_date_text:
             flash("Title, module name and due date are required.", "danger")
+            return redirect(url_for("assignments"))
+        
+        if status not in allowed_statuses:  
+            flash("Please choose a valid status", "danger")
+            return redirect(url_for("assignments"))  
+
+        if priority not in allowed_priorities:
+            flash("Please choose a valid priority", "danger")
             return redirect(url_for("assignments"))
         try:
             due_date = datetime.strptime(
@@ -309,7 +339,7 @@ def assignments():
         db.session.commit()
 
 
-        flash("Assignment added successfully", "success")
+        flash("Assignment added successfully.", "success")
 
         return redirect(url_for("assignments"))
     
@@ -337,10 +367,17 @@ def update_assignment_status(assignment_id):
     if assignment.user_id != current_user.id:
             flash("You don't have permission to update this assignment.", "danger")
             return redirect(url_for("assignments"))
-    new_status = request.form.get("status", "Not started")
+    new_status = request.form.get("status", "Not started").strip()
+    allowed_statuses = ["Not started","In progress","Completed"]
+   
+    if new_status not in allowed_statuses:
+        flash ("Please choose a valid status.", "danger")
+        return redirect(url_for("assignments"))
+
     assignment.status = new_status
     db.session.commit()
-    flash ("Well done. Assignment status updated.", "success")
+
+    flash ("Assignment status updated.", "success")
     return redirect(url_for("assignments"))
 
 @app.route("/assignment/<int:assignment_id>/delete", methods=["POST"])
@@ -352,7 +389,7 @@ def delete_assignment(assignment_id):
             return redirect(url_for("assignments"))
         db.session.delete(assignment)
         db.session.commit()
-        flash("Assignment torched.", "success")
+        flash("Assignment deleted.", "success")
         return redirect(url_for("assignments"))
 
 #====Timetable route and logic==#
@@ -370,24 +407,30 @@ def timetable():
                   "15:00" ,
                   "16:00",
                   "17:00"] 
-    
+
+    class_types = ["Lecture", "Tutorial", "Lab", "Seminar", "Study session", "Other"]
+
+
     if request.method =='POST':
-        module_name = request.form.get("module_name")
-        class_type = request.form.get("class_type")
-        day_of_week = request.form.get("day_of_week")
-        start_time_text = request.form.get("start_time")
-        end_time_text = request.form.get("end_time")
-        location = request.form.get("location")
-        notes = request.form.get("notes")
+        module_name = request.form.get("module_name", "").strip()
+        class_type = request.form.get("class_type", "").strip()
+        day_of_week = request.form.get("day_of_week", "").strip()
+        start_time_text = request.form.get("start_time", "").strip()
+        end_time_text = request.form.get("end_time", "").strip()
+        location = request.form.get("location", "").strip()
+        notes = request.form.get("notes", "").strip()
 
-        if not module_name or not class_type or not day_of_week or not start_time_text or not end_time_text:
 
-            flash("Module name, class type, day and times are required.", "danger")
+        if not module_name or not class_type or not day_of_week or not start_time_text or not end_time_text or not location:
+            flash("Module name, class type, day, times and location are required.", "danger")
+            return redirect(url_for("timetable"))
+        
+        if class_type not in class_types:
+            flash("Please choose a valid class type.", "danger")
             return redirect(url_for("timetable"))
         
                 
         if day_of_week not in days:
-
             flash("Please choose a valid weekday.", "danger")
             return redirect(url_for("timetable"))
 
@@ -428,6 +471,7 @@ def timetable():
                 .all()
 
             )
+
     
     return render_template("timetable.html",
     days=days,
@@ -443,13 +487,13 @@ def delete_timetable_entry(entry_id):
     entry = TimetableEntry.query.get_or_404(entry_id)
 
     if entry.user_id != current_user.id:
-        flash("You do not have permission to delete this timetable entry", "danger")
+        flash("You do not have permission to delete this timetable entry.", "danger")
         return redirect(url_for("timetable"))   
 
     db.session.delete(entry)
     db.session.commit()
 
-    flash("Timetable entry deleted", "success")
+    flash("Timetable entry deleted.", "success")
     return redirect(url_for("timetable"))
 
 
