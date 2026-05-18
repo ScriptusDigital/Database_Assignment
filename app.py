@@ -76,11 +76,15 @@ def home():
 def dashboard():
     today = date.today()
     next_week = today + timedelta(days=7)
+   
     assignments = Assignment.query.filter_by(user_id=current_user.id).all()
     expenses = Expense.query.filter_by(user_id=current_user.id).all()
+   
     total_assignments = len(assignments)
     completed_assignments = sum(1 for item in assignments if item.status == "Completed")
+    
     pending_assignments = total_assignments - completed_assignments 
+    
     due_soon = (
         Assignment.query.filter(
             Assignment.user_id ==current_user.id,
@@ -109,9 +113,55 @@ def dashboard():
         .limit(5)
         .all()
         )
+ 
+ #====DEFINITIONS FOR NEXT CLASS/EVENT LOGIC====#
+    days_order = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
 
+    now=datetime.now()
+    today_name = days_order[now.weekday()]
+    current_time = now.time()
+
+    today_next_class = (
+        TimetableEntry.query    
+        .filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.day_of_week == today_name,
+            TimetableEntry.start_time >= current_time,
+        )
+    .order_by(TimetableEntry.start_time.asc())
+    .first()
+    )
+
+    next_timetable_entry = today_next_class
+
+    if not next_timetable_entry: 
+        today_index = days_order.index(today_name)
+
+        for offset in range(1, 8):
+            next_day = days_order[(today_index + offset) % 7]
+
+            next_timetable_entry = (
+                TimetableEntry.query.filter_by(
+                    user_id=current_user.id,
+                    day_of_week=next_day,
+                )
+            .order_by(TimetableEntry.start_time.asc())
+            .first() 
+            )
+        
+            if next_timetable_entry:
+              break
+            
+  #====Dashboard summary definitions====#
     return render_template('dashboard.html',
- #====Dashboard summary definitions====#
     total_assignments=total_assignments,
     completed_assignments=completed_assignments,
     pending_assignments=pending_assignments,
@@ -119,8 +169,10 @@ def dashboard():
     overdue=overdue,
     total_spending=total_spending,
     recent_expenses=recent_expenses,
+    next_timetable_entry=next_timetable_entry,
     )
- 
+
+
  #====USER REGISTRATION====#
 
 @app.route('/register', methods=['GET', 'POST'])

@@ -243,7 +243,7 @@ a {
 
     .panel h2 {
         margin-top: 0;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 
   
@@ -293,7 +293,7 @@ a {
 
 
 .panel {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .panel-header {
@@ -436,7 +436,20 @@ a {
     margin-top: 14px;
 }
 
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-self: start;
+    margin-top: 24px;
+    margin-bottom: 24px;
 
+}
+
+.dashboard-stack {
+    display: grid;
+    gap:18px;
+}
     /*-----------FLASH MESSAGE STYLING-----------*/
 .flash-wrapper {
     margin: 24px auto
@@ -694,22 +707,27 @@ small,
     .form-row {
         grid-template-columns: 1fr;
 }
+
+.dashboard-grid {
+    grid-template-columns: 1fr;
+
+}
 }
 
  /*-----------Weekly Calendar -----------*/
 
  .calendar-week-scroll {
-    overflow-x: auto;
+    overflow-x: hidden;
     width: 100%;
     padding-bottom: 8px;
  }
 
  .calendar-week-grid {
     display: grid;
-    grid-template-columns: 80px repeat(7, minmax(170px, 1fr));
-    min-width: 1130px;
+    grid-template-columns: clamp(38px, 6vw, 80px) repeat(7, minmax(0, 1fr));
+    width: 100%;
     border: 1px solid var(--line);
-    border-radius: 16px;
+    border-radius: 6px;
     background: white;
     overflow: hidden;
  }
@@ -719,12 +737,16 @@ small,
     color: white;
     font-weight: 800;
     text-align: center;
-    padding: 14px 10px;
+    padding: clamp(6px, 1.2vw, 14px) clamp(2px, 0.8vw, 10px);
     border-right: 1px solid rgba(255, 255,255,0.12);
- }
+    overflow: hidden;
+    font-size: clamp(0.52rem, 1.1vw, 0.85rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+ }  
 
   .calendar-time-heading {
-    text-align: left;
+    text-align: center;
   }
 
   .calendar-time-label {
@@ -732,14 +754,20 @@ small,
     color: var(--muted);
     font-weight: 800;
     font-size: 0.85rem;
-    padding: 14px 10px;
+    padding: clamp(6px, 1.2vw, 14px) clamp(2px, 0.8vw, 10px);
+    margin-top: 50%;
+    text-align: center;
+
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: none;
   }
 
 .calendar-cell {
-    height: 108px;
-    padding: 5px;
+    height: clamp(62px, 9vw, 108px);
+    padding:clamp(2px, 0.5vw, 5px);
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
     background: white;
@@ -752,10 +780,10 @@ width: 100%;
 height: 100%;
 min-height: 0;
 border: 1px dashed #cbd5e1;
-border-radius: 7px;
+border-radius:clamp(3px, 0.7vw, 7px);
 background: #f8fafc;
 color: var(--muted);
-font-size: 1.2rem;
+font-size: clamp(0.75rem, 1.6vw, 1.2rem);
 cursor: pointer;
 transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease ;
 }
@@ -769,16 +797,16 @@ transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease ;
 .calendar-event{
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto auto auto;
-    column-gap: 6px;
-    row-gap: 2px;
-    padding: 6px;
-    border-radius: 8px;
+    grid-template-columns:minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: clamp(2px, 0.5vw, 6px);
+    row-gap: 1px;
+    padding:clamp(3px, 0.6vw, 6px);
+    border-radius: clamp(4px, 0.7vw, 8px);
     background: #ccfbf1;
     color: #115e59;
-    border-left: 4px solid var(--accent);
-    font-size: 0.72rem;
+    border-left:clamp(2px, 0.4vw, 4px) solid var(--accent);
+    font-size: clamp(0.48rem, 0.8vw, 0.72rem);
     max-width: 100%;
     overflow: hidden;
 }
@@ -787,7 +815,7 @@ transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease ;
 .calendar-event strong {
     grid-column: 1 / 2;
     color: #042f2e;
-    font-size: 0.76rem;
+    font-size: clamp(0.5rem, 0.9vw, 0.76rem);
     font-weight:700;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -808,22 +836,40 @@ transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease ;
      align-self: end;
     justify-self: end;
     margin: 0;
+    width: clamp(28px, 4vw, 44px);;
+    height: clamp(15px, 2vw, 20px);;
 
 }
 
 .calendar-delete {
-    width: 44px;
-    height: 20px;
-    display: grid;
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    width: clamp(28px, 4vw, 44px);
+    height: clamp(15px, 2vw, 20px);
     place-items: center;
+    display: grid;
     border: none;
     border-radius: 999px;
     padding: 0;
     background: var(--danger);
     color: white;
-    font-size: 0.6rem;
+    font-size: clamp(0.42rem, 0.75vw, 0.6rem);
     cursor: pointer;
     white-space: nowrap;
+}
+
+/*-----------Timetable responsive elements -----------*/
+
+@media (max-width: 760px) {
+    .calendar-week-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .calendar-week-grid {
+        min-width:820px;
+    }
 }
   
 
