@@ -42,6 +42,164 @@
 
     </article>
 </section>
+<section class="dashboard-grid">
+<div class="dashboard-stack">
+    <article class="panel">
+        <div class="panel-header">
+            <h2>Next class</h2>
+            <a href="{{ url_for('timetable') }}">View timetable</a>
+        </div>
+
+        {% if next_timetable_entry %}
+        <div class="record-list">
+             <div class="record-card">
+                     <div class="record-main">
+                        <h3>{{ next_timetable_entry.module_name }}</h3>
+            <p>
+                {{ next_timetable_entry.class_type }} ·                
+                {{ next_timetable_entry.day_of_week }} ·  
+                {{ next_timetable_entry.start_time.strftime("%H:%M") }} -  
+                {{ next_timetable_entry.end_time.strftime("%H:%M") }}  
+
+            </p>
+            {% if next_timetable_entry.location %}
+            <p>
+                <strong>Location:</strong>
+                    {{ next_timetable_entry.location }}
+            </p>
+                {% endif %}
+            {% if next_timetable_entry.notes %}
+            <p>
+                <strong>Note:</strong>
+
+          {{next_timetable_entry.notes }}
+            </p>
+            {% endif %}
+
+
+                     </div>
+             </div>
+        </div>
+        {% else %}
+        <p class="empty-text">No timetable entries added yet</p>
+{% endif %}
+    </article>
+  <article class="panel">
+<div class="panel-header">
+<h2>Recent expenses</h2>
+<a href="{{ url_for('budget') }}">Manage budget</a>
+</div>
+            {% if recent_expenses %} 
+
+<div class="record-list">
+        {% for expense in recent_expenses %}
+    <div class="record-card">
+        <div class="record-main">
+            <h3>{{ expense.title }}</h3>
+            <p>
+                {{ expense.category }} ·
+                {{ expense.date.strftime("%d %b %Y") }}
+            </p>
+</div>  
+ <div class="record-actions">
+    <strong>€{{ "%.2f"|format(expense.amount) }}</strong>
+</div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+ <p class="empty-text">No expenses added yet.</p>
+{% endif %}
+
+  </article>
+</div>
+
+<div class="dashboard-stack">
+       <article class="panel">
+        <div class="panel-header">
+            <h2>Assignments due soon</h2>
+            <a href="{{ url_for('assignments') }}">Manage assignments</a>
+        </div>
+
+        {% if due_soon %}
+        <div class="record-list">
+            {% for assignment in due_soon %}
+            <div class="record-card">
+               <div class="record-main">
+                <h3>{{ assignment.title }}</h3>
+                        <p>
+                {{ assignment.module_name }} · due
+              {{ assignment.due_date.strftime("%d %b %Y") }}        
+                </p>
+
+                {% if assignment.notes %}
+                <p>
+                    <strong>Note:</strong>
+                    {{ assignment.notes }}
+                </p>
+                {% endif %}
+               </div> 
+
+ <div class="record-actions">
+ <span class="badge badge-{{ assignment.priority|lower }}">
+ {{ assignment.priority }}
+</span>
+    </div>     
+        </div>
+{% endfor %}
+
+</div>
+
+{% else %}
+<p class="empty-text">No assignments due in the next seven days.</p>
+
+{% endif %}
+
+</article>
+<article class="panel">
+    <div class="panel-header">
+        <h2>Overdue assignments</h2>
+<a href="{{ url_for('assignments') }}">View all</a>
+ </div>
+
+
+   {% if overdue %}
+ <div class="record-list">
+ {% for assignment in overdue %}
+ <div class="record-card">
+<div class="record-main">
+    <h3>{{ assignment.title }}</h3>
+    <p>
+        {{ assignment.module_name }} · was due
+        {{ assignment.due_date.strftime("%d %b %Y") }} 
+
+    </p>
+
+    {% if assignment.notes %}
+    <p>
+<strong>Note:</strong>
+{{ assignment.notes }}
+
+    </p>
+    {% endif %}
+
+ </div>
+
+
+ <div class="record-actions">
+    <span class="badge badge-danger">Overdue</span>
+ </div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<p class="empty-text">No overdue assignments. Lucky you.</p>
+{% endif %}
+</article>
+
+
+</div>
+
 
 
 </section>
