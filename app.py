@@ -309,11 +309,11 @@ def assignments():
             return redirect(url_for("assignments"))
         
         if status not in allowed_statuses:  
-            flash("Please choose a valid status", "danger")
+            flash("Please choose a valid status.", "danger")
             return redirect(url_for("assignments"))  
 
         if priority not in allowed_priorities:
-            flash("Please choose a valid priority", "danger")
+            flash("Please choose a valid priority.", "danger")
             return redirect(url_for("assignments"))
         try:
             due_date = datetime.strptime(
@@ -354,7 +354,7 @@ def assignments():
     else: 
         selected_status = None
     
-        user_assignments = query.order_by(Assignment.due_date.asc()).all()
+    user_assignments = query.order_by(Assignment.due_date.asc()).all()
     
     return render_template(
             "assignments.html",

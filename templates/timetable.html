@@ -61,6 +61,7 @@
     <button type="submit" class="calendar-delete">Delete</button>
 
 </form>
+                 </div>
         {% endif %}
   {% endfor %}
     {% if not ns.found %}
@@ -94,25 +95,73 @@
     x
 
     </button>
+    </div>
 <form method="POST" class="stacked-form" data-validate="true">
     <div class="form-group">
         <label for="module_name">Module name</label>
        <input type="text" id="module_name" name="module_name" placeholder="Databases, Web Development..." required>
     </div>
 
+<div class="form-group">
+    <label for="class_type">Class type</label>
+<select id="class_type" name="class_type" required>
+    <option value="">Select type</option>
+      <option value="Lecture">Lecture</option>
+        <option value="Tutorial">Tutorial</option>
+          <option value="Lab">Lab</option>
+            <option value="Seminar">Seminar</option>
+              <option value="Study session">Study session</option>
+                <option value="Other">Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="day_of_week">Day</label>
+<select id="day_of_week" name="day_of_week" required>
+    <option value="">Select day</option>
+    {% for day in days %}
+        <option value="{{ day }}">{{ day }}</option>
+    {% endfor %}
+    </select>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label for="start_time">Start time</label>
+        <input type="time" id="start_time" name="start_time" required>
+    </div>
+
+<div class="form-group">
+            <label for="end_time">End time</label>
+        <input type="time" id="end_time" name="end_time" required>
+    </div>
+    </div>
+
+    <div class="form-group">
+            <label for="location">Location</label>
+<input type="text" id="location" name="location"
+placeholder="Room, campus, online..." required>
+
+</div>
+
+    <div class="form-group">
+            <label for="notes">Notes</label>
+<textarea id="notes" name="notes" rows="4" placeholder="Optional notes about this class">
+</textarea>
 
     </div>
+
+<div class="modal-actions">
+      <button type="submit" class="btn btn-primary">Save Entry</button>
+  
+</div>
 </form>
  
 
 </div>
 
 
-
 </div>
-
-
-
 
 
 {% endblock %}
