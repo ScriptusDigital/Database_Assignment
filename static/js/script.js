@@ -1,12 +1,15 @@
+/* jshint esversion: 6 */
+
 document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('#navToggle');
     const navLinks = document.querySelector('#navLinks');
 
     if (navToggle && navLinks) {
+        navToggle.setAttribute('aria-expanded', 'false');
         navToggle.addEventListener('click', () => {
             const isOpen = navLinks.classList.toggle('open');
-        }
-        );
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
     }
 });
 
@@ -41,7 +44,7 @@ if (assignmentFilter && assignmentItems.length > 0) {
 
                 item.classList.remove("hidden");
             } else {
-                item.classList.add("hidden")
+                item.classList.add("hidden");
             }
         });
     });
@@ -59,18 +62,18 @@ const validateForms = document.querySelectorAll('form[data-validate="true"]');
 validateForms.forEach(form => {
     form.addEventListener('submit', (e) => {
         const requiredFields = form.querySelectorAll("[required]");
-        let formisValid = true;
+        let formIsValid = true;
 
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
-                formisValid = false;
+                formIsValid = false;
                 field.classList.add('input-error');
             } else {
                 field.classList.remove('input-error');
             }
         });
 
-        if (!formisValid) {
+        if (!formIsValid) {
             e.preventDefault();
             alert('Please fill in all required fields.');
         }
@@ -78,25 +81,25 @@ validateForms.forEach(form => {
 });     
 
 
-//TIMETable script - for popup and prefills
+//Timetable script - for popup and prefills
 
-const timetableModal = document.querySelector('#timetableModal')
-const closeTimetableModal = document.querySelector('#closeTimetableModal')
-const cancelTimetableModal = document.querySelector('#cancelTimetableModal')
-const calendarSlots = document.querySelectorAll ('.calendar-slot');
-const dayInput = document.querySelector('#day_of_week')
-const startInput = document.querySelector('#start_time')
-const endInput = document.querySelector('#end_time')
-const moduleInput = document.querySelector('#module_name')
+const timetableModal = document.querySelector('#timetableModal');
+const closeTimetableModal = document.querySelector('#closeTimetableModal');
+const cancelTimetableModal = document.querySelector('#cancelTimetableModal');
+const calendarSlots = document.querySelectorAll('.calendar-slot');
+const dayInput = document.querySelector('#day_of_week');
+const startInput = document.querySelector('#start_time');
+const endInput = document.querySelector('#end_time');
+const moduleInput = document.querySelector('#module_name');
 
 
 
 function showTimetableModal() {
     if (timetableModal) {
-    timetableModal.classList.add('open');
-    timetableModal.setAttribute('aria-hidden', 'false');
+        timetableModal.classList.add('open');
+        timetableModal.setAttribute('aria-hidden', 'false');
+    }
 
-}
     if (moduleInput) {
         moduleInput.focus();
     }
@@ -105,46 +108,45 @@ function showTimetableModal() {
 
 function hideTimetableModal() {
     if (timetableModal) {
-    timetableModal.classList.remove('open');
-    timetableModal.setAttribute('aria-hidden', 'true');
-
-}
+        timetableModal.classList.remove('open');
+        timetableModal.setAttribute('aria-hidden', 'true');
+    }
 }
 
 
 
 if (closeTimetableModal) {
     closeTimetableModal.addEventListener('click', hideTimetableModal);
-    }
+}
 
 
 if (cancelTimetableModal) {
     cancelTimetableModal.addEventListener('click', hideTimetableModal);
-    }
+}
 
-    calendarSlots.forEach(slot => {
-        slot.addEventListener('click', () => {
-            if (dayInput && startInput && endInput) {
-                dayInput.value = slot.dataset.day;
-                startInput.value = slot.dataset.start;
-                endInput.value = slot.dataset.end;
+calendarSlots.forEach(slot => {
+    slot.addEventListener('click', () => {
+        if (dayInput && startInput && endInput && moduleInput) {
+            dayInput.value = slot.dataset.day;
+            startInput.value = slot.dataset.start;
+            endInput.value = slot.dataset.end;
         }
 
         showTimetableModal();
     });
-    });
+});
 
-    //Easier user experience on click away
+    // Close modal when clicking outside
 
-    if (timetableModal) {
+if (timetableModal) {
         timetableModal.addEventListener('click', (event) => {
-        if (event.target === timetableModal) {
-            hideTimetableModal();
-        }
+            if (event.target === timetableModal) {
+                hideTimetableModal();
+            }
         });
     }
 
-    document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             hideTimetableModal();
         }
