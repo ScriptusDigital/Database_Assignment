@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta
 
 
 from dotenv import load_dotenv
-
+from flask_migrate import Migrate
 
 from flask import (
     Flask,
@@ -46,9 +46,8 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 #====DATABASE INIT====#
 
 db.init_app(app)
-with app.app_context():
-    db.create_all()
-    print("Database tables created successfully.")
+migrate = Migrate(app, db)
+
 
 #====LOGIN MANAGER====#
 login_manager = LoginManager()
@@ -558,7 +557,7 @@ def delete_timetable_entry(entry_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)        
+    app.run(debug=True, port=5000)        
 
 
     
