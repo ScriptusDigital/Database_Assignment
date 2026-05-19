@@ -20,6 +20,8 @@ from flask_login import (
     login_user,
     logout_user
 )   
+
+from forms import RegistrationForm, LoginForm
 from models import User, Expense, Assignment, TimetableEntry, db
 
 load_dotenv()
@@ -176,37 +178,24 @@ def dashboard():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    form=RegistrationForm()
 
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
     
-    if request.method == 'POST':
-        username = request.form.get('username', "").strip()
-        email = request.form.get('email', "").strip().lower()
-        password = request.form.get('password', "")
-        confirm_password = request.form.get('confirm_password', "")
-        
-        if not username or not email or not password or not confirm_password:
-         flash('Please fill out all fields.', 'danger')
-         return render_template('register.html')
-    
-        if password != confirm_password:
-            flash('Passwords do not match. Please try again.', 'danger')
-            return render_template('register.html')
-        if len(password) < 6:
-            flash('Password must be at least 6 characters long.', 'danger')
-            return render_template('register.html')
+    if form.validate_on_submit():
+        username = form.username.data.strip()
+        email = form.email.data.strip().lower()
+        password = form.password.data
 
-        existing_user = User.query.filter_by(email=email).first()
+        if User.query.filter_by(email=email).first():
+            flash('Email already registered. Please log in.', 'warning')
+            return redirect(url_for('login'))
 
-        if existing_user:
-         flash('Email already registered. Please log in.', 'warning')
-         return redirect(url_for('login'))
     
         if User.query.filter_by(username=username).first():
             flash('Username already taken. Please choose a different one.', 'danger')
-            return render_template('register.html')
-        
+            return render_template('register.html', form=form)
     
         new_user = User(username=username, email=email)
         new_user.set_password(password)
@@ -218,7 +207,7 @@ def register():
     
         return redirect(url_for('login'))     
       
-    return render_template('register.html')
+    return render_template('register.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -557,7 +546,7 @@ def delete_timetable_entry(entry_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)        
+    app.run(debug=True, port=5005)        
 
 
     
