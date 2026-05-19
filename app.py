@@ -43,7 +43,7 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 }
            
 
-#====DATABSE INIT====#
+#====DATABASE INIT====#
 
 db.init_app(app)
 with app.app_context():
@@ -56,7 +56,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))     
+    return db.session.get(User, int(user_id)) 
 
 login_manager.login_view = 'login'
 login_manager.login_message = (
@@ -87,8 +87,8 @@ def dashboard():
     
     due_soon = (
         Assignment.query.filter(
-            Assignment.user_id ==current_user.id,
-            Assignment.status !="Completed",
+            Assignment.user_id == current_user.id,
+            Assignment.status != "Completed",
              Assignment.due_date >= today,
              Assignment.due_date <= next_week,
         )
@@ -125,7 +125,7 @@ def dashboard():
         "Sunday",
     ]
 
-    now=datetime.now()
+    now = datetime.now()
     today_name = days_order[now.weekday()]
     current_time = now.time()
 
@@ -264,7 +264,7 @@ def logout():
 @login_required
 def budget():
 
-  #====Expenses input andlogic==#
+  #====Expenses input and logic==#
     if request.method == 'POST':
         title = request.form.get('title', '').strip()
         category = request.form.get('category', '').strip()
@@ -374,7 +374,7 @@ def assignments():
                 ).date()
             
         except ValueError:
-            flash("Please enter a date", "danger")
+            flash("Please enter a valid due date", "danger")
             return redirect (url_for("assignments"))
         
         assignment = Assignment(
@@ -415,7 +415,7 @@ def assignments():
     )
 
 
-#====Update and delete function for assignement cards - CRUD FUNCTION==#
+#====Update and delete function for assignment cards - CRUD FUNCTION==#
 #===Based on elements of https://flask-sqlalchemy.readthedocs.io/en/stable/queries==#
 #=== and https://bdavison.napier.ac.uk/web/flask/basics/crud==#
 @app.route("/assignment/<int:assignment_id>/status", methods=["POST"])
@@ -539,7 +539,7 @@ def timetable():
 )
 
 
- #===USER TIMETABLE DELETE LOGIC===#
+ #===User timetable delete logic===#
 @app.route('/timetable/<int:entry_id>/delete', methods=['POST'])
 @login_required
 def delete_timetable_entry(entry_id):

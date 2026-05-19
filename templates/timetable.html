@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home - StudentPilot{% endblock %}
+{% block title %}Timetable - StudentPilot{% endblock %}
 {% block content %}
 
 
@@ -8,7 +8,7 @@
     <p class="eyebrow">Timetable</p>
 
     <h1>Plan your study week</h1>
-    <p>Click a slot to fill the form, then save your class to the database</p>
+    <p>Click a slot to fill the form, then save your class to the database.</p>
 
 </section>
 
@@ -52,7 +52,7 @@
             </span>
 
             {% if entry.location %}
-            <span> {{ entry.location }}</span>
+            <span>{{ entry.location }}</span>
 
                    {% endif %}
 
@@ -92,10 +92,10 @@
 
 
 <button type="button" class="modal-close" id="closeTimetableModal" aria-label="Close timetable form">
-    x
-
-    </button>
+    ×
+</button>
     </div>
+
 <form method="POST" class="stacked-form" data-validate="true">
     <div class="form-group">
         <label for="module_name">Module name</label>
@@ -152,7 +152,7 @@ placeholder="Room, campus, online..." required>
     </div>
 
 <div class="modal-actions">
-      <button type="submit" class="btn btn-primary">Save Entry</button>
+      <button type="submit" class="btn btn-primary">Save entry</button>
   
 </div>
 </form>

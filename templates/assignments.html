@@ -19,7 +19,7 @@
         <form method="POST" class="stacked-form" data-validate="true">
 
             <div class="form-group">
-                <label for="title">Assignment Title</label>
+                <label for="title">Assignment title</label>
                 <input type="text" id="title" name="title" required>
             </div>
 
@@ -36,7 +36,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="priority">Priority</label>
-                    <select id="priority" name="priority">
+                    <select id="priority" name="priority" required>
                         <option value="Low">Low</option>
                         <option value="Medium" selected>Medium</option>
                         <option value="High">High</option>
@@ -45,8 +45,8 @@
 
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select id="status" name="status">
-                        <option value="Not started">Not Started</option>
+                    <select id="status" name="status" required>
+                        <option value="Not started">Not started</option>
                         <option value="In progress">In progress</option>
                         <option value="Completed">Completed</option>
                     </select>
@@ -57,7 +57,7 @@
                 <textarea id="notes" name="notes" rows="4"></textarea>
 
             </div>
-            <button type="submit" class="btn btn-primary full-width">Add Assignment</button>
+            <button type="submit" class="btn btn-primary full-width">Add assignment</button>
         </form>
     </article>
 
@@ -65,10 +65,10 @@
         <div class="panel-header">
             <h2>Your assignments</h2>
             <select id="assignmentFilter" class="small-select">
-                <option value="all"> All statuses </option>
-                <option value="Not started"> Not started </option>
-                <option value="In progress"> In progress </option>
-                <option value="Completed"> Completed </option>
+                <option value="all">All statuses</option>
+                <option value="Not started">Not started</option>
+                <option value="In progress">In progress</option>
+                <option value="Completed">Completed</option>
             </select>
         </div>
 
@@ -89,32 +89,31 @@
 
                     {% if assignment.notes %}
 
-                    <p>{{ assignment.notes }}</p>
+                    <p class="muted">{{ assignment.notes }}</p>
                     {% endif %}
 
 
                     <div class="badge-row">
-                        <span class="badge badge-{{ assignment.priority|lower }}">{{ assignment.priority}}</span>
+                        <span class="badge badge-{{ assignment.priority|lower }}">{{ assignment.priority }}</span>
 
-                        <span class="badge badge-neutral">{{ assignment.status}}
+                        <span class="badge badge-neutral">{{ assignment.status }}
 
                         </span>
                     </div>
                 </div>
 
 <div class="record-actions">
-<form method="POST" action="{{ url_for('update_assignment_status', assignment_id=assignment.id) }}">
-    <select name="status" class="small-select">
-        <option value="Not started" {% if assignment.status == "Not started" %} selected{% endif %}>Not started</option>
-        <option value="In progress" {% if assignment.status == "In progress" %} selected{% endif %}>In progress</option>
-        <option value="Complete" {% if assignment.status == "Completed" %} selected{% endif %}>Completed</option>
+    <form method="POST" action="{{ url_for('update_assignment_status', assignment_id=assignment.id) }}">
+         <select name="status" class="small-select">
+             <option value="Not started" {% if assignment.status == "Not started" %} selected{% endif %}>Not started</option>
+             <option value="In progress" {% if assignment.status == "In progress" %} selected{% endif %}>In progress</option>
+             <option value="Completed" {% if assignment.status == "Completed" %} selected{% endif %}>Completed</option>
 
-        </select>
-
-            <button type="submit" class="btn btn-small">Update</button>
+            </select>
+    <button type="submit" class="btn btn-small">Update</button>
              </form>
 
-    <form method="POST" action=" {{ url_for('delete_assignment', assignment_id=assignment.id )}}" class="delete-form">
+    <form method="POST" action="{{ url_for('delete_assignment', assignment_id=assignment.id) }}" class="delete-form">
 
     <button type="submit" class="btn btn-danger btn-small">Delete</button>
              </form>

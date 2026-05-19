@@ -8,20 +8,18 @@
     <p class="eyebrow">Dashboard</p>
 
     <h1>Hello {{ current_user.username }}</h1>
-    <p>Welcome to your user dashboard</p>
+    <p>Welcome to your user dashboard.</p>
 
 </section>
 
 <section class="stat-grid">
     <article class="stat-card">
        <span>Total assignments</span> 
-       <strong>
-{{ total_assignments }}
-       </strong> 
+       <strong>{{ total_assignments }}</strong> 
     </article>
 
       <article class="stat-card">
-               <span>Completed Assignments</span> 
+               <span>Completed assignments</span> 
        <strong>
 {{ completed_assignments }}
        </strong> 
@@ -29,14 +27,14 @@
 
 
       <article class="stat-card">
-               <span>Pending Assignments</span> 
+               <span>Pending assignments</span> 
        <strong>
 {{ pending_assignments }}
        </strong> 
     </article>
 
       <article class="stat-card">
-         <span>Total Spending</span> 
+         <span>Total spending</span> 
  
  <strong>€{{ '%.2f'|format(total_spending) }}</strong>
 
@@ -72,7 +70,7 @@
             <p>
                 <strong>Note:</strong>
 
-          {{next_timetable_entry.notes }}
+          {{ next_timetable_entry.notes }}
             </p>
             {% endif %}
 
@@ -81,7 +79,7 @@
              </div>
         </div>
         {% else %}
-        <p class="empty-text">No timetable entries added yet</p>
+        <p class="empty-text">No timetable entries added yet.</p>
 {% endif %}
     </article>
   <article class="panel">

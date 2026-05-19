@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navToggle.setAttribute('aria-expanded', 'false');
         navToggle.addEventListener('click', () => {
             const isOpen = navLinks.classList.toggle('open');
-            navToggle.setAttribute('aria-expanded', isOpen);
+            navToggle.setAttribute('aria-expanded', String(isOpen));
         });
     }
 });
@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //Form delete confirmation script - prompts user to confirm before deleting a record
 
 const deleteForms = document.querySelectorAll('.delete-form');
-
 deleteForms.forEach(form => {
     form.addEventListener('submit', (e) => {
         const confirmed = confirm('Are you sure you want to delete this record? This action cannot be undone.');
@@ -82,6 +81,8 @@ validateForms.forEach(form => {
 
 
 //Timetable script - for popup and prefills
+//Based on tutorials and code adaption from https://codynn.com/labs/create/time-block-calendar 
+// and https://www.youtube.com/watch?v=jJZRIOOw6zI
 
 const timetableModal = document.querySelector('#timetableModal');
 const closeTimetableModal = document.querySelector('#closeTimetableModal');
@@ -113,8 +114,6 @@ function hideTimetableModal() {
     }
 }
 
-
-
 if (closeTimetableModal) {
     closeTimetableModal.addEventListener('click', hideTimetableModal);
 }
@@ -126,18 +125,17 @@ if (cancelTimetableModal) {
 
 calendarSlots.forEach(slot => {
     slot.addEventListener('click', () => {
-        if (dayInput && startInput && endInput && moduleInput) {
-            dayInput.value = slot.dataset.day;
-            startInput.value = slot.dataset.start;
-            endInput.value = slot.dataset.end;
-        }
+      if (dayInput && startInput && endInput) {
+        dayInput.value = slot.dataset.day;
+        startInput.value = slot.dataset.start;
+        endInput.value = slot.dataset.end;
+}
 
         showTimetableModal();
     });
 });
 
     // Close modal when clicking outside
-
 if (timetableModal) {
         timetableModal.addEventListener('click', (event) => {
             if (event.target === timetableModal) {

@@ -15,7 +15,7 @@
 <div class="stat-grid">
     <div class="stat-card">
 
-        <span> Total spending</span>
+        <span>Total spending</span>
 
         <strong>€{{ "%.2f"|format(total_spent) }}
 
@@ -25,9 +25,9 @@
 
     <div class="stat-card">
 
-        <span> Expense Records</span>
+        <span>Expense Records</span>
 
-        <strong>{{ expenses|length }} </strong>
+        <strong>{{ expenses|length }}</strong>
 
     </div>
 
@@ -42,13 +42,13 @@
 <div class="two-column">
     <div class="panel">
 
-        <h2> Add New Expense</h2>
+        <h2>Add New Expense</h2>
 
 
         <form method="POST" class="stacked-form" data-validate="true">
 
             <div class="form-group">
-                <label for="title">Expense Title</label>
+                <label for="title">Expense title</label>
                 <input type="text" id="title" name="title" placeholder="Groceries, books, bus ticket..." required>
             </div>
 
@@ -84,7 +84,7 @@
                 <textarea id="notes" name="notes" rows="4" placeholder="Add any notes about this expense..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary full-width">Add Expense</button>
+            <button type="submit" class="btn btn-primary full-width">Add expense</button>
         </form>
 
     </div>
@@ -110,7 +110,7 @@
 
 <article class="panel">
     <div class="panel-header">
-        <h2>Expense History</h2>
+        <h2>Expense history</h2>
     </div>
 
     {% if expenses %}
@@ -123,8 +123,8 @@
         <div class="record-card">
             <div class="record-main">
                 <h3>{{ expense.title }}</h3>
-                <p>{{ expense.category }} - {{ expense.date}}</p>
-                    {%if expense.notes %}
+                <p>{{ expense.category }} · {{ expense.date }}</p>
+                    {% if expense.notes %}
                 <p class="muted">{{ expense.notes }}</p>
                 {% endif %}
             </div>
