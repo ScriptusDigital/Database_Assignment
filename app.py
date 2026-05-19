@@ -212,31 +212,27 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    form = LoginForm()
 
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
     
-    if request.method == 'POST':
-        email = request.form.get('email', '').strip().lower()
-        password = request.form.get('password', '')
-        remember = request.form.get("remember") == "on"
+    if form.validate_on_submit():
+        email = form.email.data.strip().lower()
+        password = form.password.data
+        remember = form.remember.data
   
 
         user = User.query.filter_by(email=email).first()
 
-
-
-        
-       
-            
         if user and user.check_password(password):
             login_user(user, remember=remember)
             flash(f'Welcome back, {user.username}.', 'success')
             return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid email or password. Please try again.', 'danger')
+     
+        flash('Invalid email or password. Please try again.', 'danger')
 
-    return render_template('login.html')
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')

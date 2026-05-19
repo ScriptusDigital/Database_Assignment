@@ -564,12 +564,6 @@ margin-bottom: 6px;
 padding-right: 10px;
 }
 
-input[type="submit"].btn,
-.wtform-submit {
-    width: 100%;
-    border: none;
-}
-
   
  /*-----------Registration Form-----------*/
 .stacked-form {

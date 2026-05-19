@@ -8,21 +8,31 @@
         <p class="form-intro">Log in to your account</p>
 
         <form method="POST" class="stacked-form" data-validate="true">
+            {{ form.hidden_tag() }}           
+            
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" required>
+             {{ form.email.label }}   
+             {{ form.email(autocomplete="email") }}   
+
+            {% for error in form.email.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
+    
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" autocomplete="current-password" required>
+             {{ form.password.label }}   
+            {{ form.password(autocomplete="current-password") }}   
+            {% for error in form.password.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
 
             <label class="checkbox-row">
-                <input type="checkbox" name="remember">
+                {{ form.remember() }}
                 <span>Remember me</span>
             </label>
-
-            <button type="submit" class="btn btn-primary full-width">Log in</button>
+{{ form.submit(class="btn btn-primary full-width") }}
+            
         </form>
 
         <p class="form-switch">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
