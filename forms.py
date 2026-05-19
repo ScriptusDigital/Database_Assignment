@@ -115,10 +115,10 @@ class AssignmentForm(FlaskForm):
     )
 
     notes = TextAreaField("Notes")
-
     submit = SubmitField("Add assignment")
 
-    class AssignmentStatusForm(FlaskForm):
+
+class AssignmentStatusForm(FlaskForm):
         status = SelectField(
         "Status",
        choices=[
@@ -132,5 +132,5 @@ class AssignmentForm(FlaskForm):
         ]
     )
 
-    submit - SubmitField("Update")
+        submit = SubmitField("Update")
         

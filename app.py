@@ -21,7 +21,7 @@ from flask_login import (
     logout_user
 )   
 
-from forms import RegistrationForm, LoginForm
+from forms import AssignmentForm, AssignmentStatusForm, RegistrationForm, LoginForm
 from models import User, Expense, Assignment, TimetableEntry, db
 
 load_dotenv()
@@ -331,75 +331,51 @@ def delete_expense(expense_id):
 @app.route('/assignments', methods=["GET", "POST"])
 @login_required
 def assignments():
-    if request.method == "POST":
-        title = request.form.get('title', '').strip()
-        module_name = request.form.get('module_name', '').strip()
-        due_date_text = request.form.get('due_date', '').strip()
-        notes = request.form.get('notes', '').strip()
-        priority = request.form.get('priority', "Medium").strip()
-        status = request.form.get('status', "Not started").strip()
-        
+    form = AssignmentForm()
 
-        allowed_priorities = ["Low","Medium","High"]
-        allowed_statuses = ["Not started","In progress","Completed"]
-
-
-        if not title or not module_name or not due_date_text:
-            flash("Title, module name and due date are required.", "danger")
-            return redirect(url_for("assignments"))
-        
-        if status not in allowed_statuses:  
-            flash("Please choose a valid status.", "danger")
-            return redirect(url_for("assignments"))  
-
-        if priority not in allowed_priorities:
-            flash("Please choose a valid priority.", "danger")
-            return redirect(url_for("assignments"))
-        try:
-            due_date = datetime.strptime(
-                due_date_text,
-                "%Y-%m-%d"
-                ).date()
-            
-        except ValueError:
-            flash("Please enter a valid due date", "danger")
-            return redirect (url_for("assignments"))
-        
+    if form.validate_on_submit():
         assignment = Assignment(
-            title=title,
-            module_name=module_name,
-            due_date=due_date,
-            priority=priority,
-            status=status,
-            notes=notes,
-            user_id=current_user.id
-        )
+        title=form.title.data.strip(),
+        module_name=form.module_name.data.strip(),
+        due_date=form.due_date.data,
+        priority=form.priority.data,
+        status=form.status.data,
 
+        notes=form.notes.data.strip() if form.notes.data else "",
+        user_id=current_user.id
+        )
+        
         db.session.add(assignment)
         db.session.commit()
 
-
         flash("Assignment added successfully.", "success")
-
         return redirect(url_for("assignments"))
+       
     
-
-    #====Assignment query return into summary==#
     selected_status = request.args.get("status")
     allowed_statuses = ["Not started", "In progress", "Completed"]
-    
+
     query = Assignment.query.filter_by(user_id=current_user.id)
+
     if selected_status in allowed_statuses:
         query = query.filter_by(status=selected_status)
-    else: 
+    else:
         selected_status = None
-    
+
     user_assignments = query.order_by(Assignment.due_date.asc()).all()
-    
+
+    status_forms = {}
+    for assignment in user_assignments:
+        status_form = AssignmentStatusForm()
+        status_form.status.data = assignment.status
+        status_forms[assignment.id] = status_form
+
     return render_template(
-            "assignments.html",
-            assignments=user_assignments,
-            selected_status=selected_status,
+        "assignments.html",
+    assignments=user_assignments,
+    selected_status=selected_status,
+    form=form,
+    status_forms=status_forms,
     )
 
 
@@ -414,28 +390,30 @@ def update_assignment_status(assignment_id):
     if assignment.user_id != current_user.id:
             flash("You don't have permission to update this assignment.", "danger")
             return redirect(url_for("assignments"))
-    new_status = request.form.get("status", "Not started").strip()
-    allowed_statuses = ["Not started","In progress","Completed"]
-   
-    if new_status not in allowed_statuses:
+    
+    form = AssignmentStatusForm()
+
+    if form.validate_on_submit():
+        assignment.status = form.status.data
+        db.session.commit()
+        flash ("Assignment status updated.", "success")
+    else:
         flash ("Please choose a valid status.", "danger")
-        return redirect(url_for("assignments"))
 
-    assignment.status = new_status
-    db.session.commit()
-
-    flash ("Assignment status updated.", "success")
     return redirect(url_for("assignments"))
 
 @app.route("/assignment/<int:assignment_id>/delete", methods=["POST"])
 @login_required
 def delete_assignment(assignment_id):
         assignment = Assignment.query.get_or_404(assignment_id)
+
         if assignment.user_id != current_user.id:
             flash("You do not have permission to delete this assignment", "danger")
             return redirect(url_for("assignments"))
+        
         db.session.delete(assignment)
         db.session.commit()
+
         flash("Assignment deleted.", "success")
         return redirect(url_for("assignments"))
 

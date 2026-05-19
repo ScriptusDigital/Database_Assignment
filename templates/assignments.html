@@ -17,47 +17,59 @@
 
 
         <form method="POST" class="stacked-form" data-validate="true">
-
+                {{ form.hidden_tag() }}
             <div class="form-group">
-                <label for="title">Assignment title</label>
-                <input type="text" id="title" name="title" required>
+             {{ form.title.label }}   
+             {{ form.title }}    
+            {% for error in form.title.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
 
             <div class="form-group">
-                <label for="module_name">Module name</label>
-                <input type="text" id="module_name" name="module_name" required>
+             {{ form.module_name.label }}   
+             {{ form.module_name }}    
+            {% for error in form.module_name.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
 
             <div class="form-group">
-                <label for="due_date">Due date</label>
-                <input type="date" id="due_date" name="due_date" required>
+             {{ form.due_date.label }}   
+             {{ form.due_date }}    
+            {% for error in form.due_date.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
 
             <div class="form-row">
-                <div class="form-group">
-                    <label for="priority">Priority</label>
-                    <select id="priority" name="priority" required>
-                        <option value="Low">Low</option>
-                        <option value="Medium" selected>Medium</option>
-                        <option value="High">High</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" required>
-                        <option value="Not started">Not started</option>
-                        <option value="In progress">In progress</option>
-                        <option value="Completed">Completed</option>
-                    </select>
-                </div>
+              <div class="form-group">
+             {{ form.priority.label }}   
+             {{ form.priority }}    
+            {% for error in form.priority.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
+        </div>
+
+
+         
+              <div class="form-group">
+             {{ form.status.label }}   
+             {{ form.status }}    
+            {% for error in form.status.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
+            </div>
+    
             <div class="form-group">
-                <label for="notes">Notes</label>
-                <textarea id="notes" name="notes" rows="4"></textarea>
-
+             {{ form.notes.label }}   
+             {{ form.notes(rows="4") }}    
+            {% for error in form.notes.errors %}
+            <small class="form-error">{{ error }}</small>
+            {% endfor %}
             </div>
-            <button type="submit" class="btn btn-primary full-width">Add assignment</button>
+{{ form.submit(class="btn btn-primary full-width") }}
         </form>
     </article>
 
@@ -104,14 +116,10 @@
 
 <div class="record-actions">
     <form method="POST" action="{{ url_for('update_assignment_status', assignment_id=assignment.id) }}">
-         <select name="status" class="small-select">
-             <option value="Not started" {% if assignment.status == "Not started" %} selected{% endif %}>Not started</option>
-             <option value="In progress" {% if assignment.status == "In progress" %} selected{% endif %}>In progress</option>
-             <option value="Completed" {% if assignment.status == "Completed" %} selected{% endif %}>Completed</option>
-
-            </select>
-    <button type="submit" class="btn btn-small">Update</button>
-             </form>
+        {{ status_forms[assignment.id].hidden_tag() }}
+         {{ status_forms[assignment.id].status(class="small-select") }}
+        {{ status_forms[assignment.id].submit(class="btn btn-small") }}
+    </form>
 
     <form method="POST" action="{{ url_for('delete_assignment', assignment_id=assignment.id) }}" class="delete-form">
 
