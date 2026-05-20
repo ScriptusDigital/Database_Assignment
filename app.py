@@ -247,14 +247,22 @@ def logout():
 @app.route('/budget', methods=['GET', 'POST'] )
 @login_required
 def budget():
+    form = ExpenseForm()
 
-  #====Expenses input and logic==#
-    if request.method == 'POST':
-        title = request.form.get('title', '').strip()
-        category = request.form.get('category', '').strip()
-        amount_text = request.form.get('amount', '').strip()
-        date_text  = request.form.get('date', '').strip()
-        notes = request.form.get('notes', '').strip()
+    if form.validate_on_submit():
+        expense = Expense(  
+            title=form.title.data.strip(),
+            category=form.category.data,
+            amount_text=form.amount.data,
+            date_text=form.date.data,
+            notes=form.notes.data.strip() if form.notes.data else "",
+            user_id=current_user.id
+        )
+
+        db.session.add(expense)
+        db.session.commit()
+
+        flash('expense added successfully!', 'success')
 
         if not title or not category or not amount_text or not date_text:
             flash('Please fill out all required fields.', 'danger')
