@@ -21,7 +21,7 @@ from flask_login import (
     logout_user
 )   
 
-from forms import AssignmentForm, AssignmentStatusForm, ExpenseForm, RegistrationForm, LoginForm
+from forms import AssignmentForm, AssignmentStatusForm, ExpenseForm, RegistrationForm, LoginForm, TimetableEntryForm
 from models import User, Expense, Assignment, TimetableEntry, db
 
 load_dotenv()
@@ -394,6 +394,7 @@ def delete_assignment(assignment_id):
 @app.route('/timetable', methods=['GET', 'POST'])
 @login_required
 def timetable():
+    form = TimetableEntryForm()
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     time_slots = ["08:00",
                   "09:00", 
@@ -404,20 +405,22 @@ def timetable():
                   "14:00",
                   "15:00" ,
                   "16:00",
-                  "17:00"] 
+                  "17:00"
+    ]
 
-    class_types = ["Lecture", "Tutorial", "Lab", "Seminar", "Study session", "Other"]
+    if form.validate_on_submit(): 
+        if form.end_time.data <= form.start_time.data:
+            flash("End time must be after start time.", "danger")
+            return redirect(url_for("timetable"))
 
-
-    if request.method =='POST':
-        module_name = request.form.get("module_name", "").strip()
-        class_type = request.form.get("class_type", "").strip()
-        day_of_week = request.form.get("day_of_week", "").strip()
-        start_time_text = request.form.get("start_time", "").strip()
-        end_time_text = request.form.get("end_time", "").strip()
-        location = request.form.get("location", "").strip()
-        notes = request.form.get("notes", "").strip()
-
+    entry = TimetableEntry(
+        module_name= 
+        class_type= request.form.get("class_type", "").strip()
+        day_of_week= request.form.get("day_of_week", "").strip()
+        start_time_text= request.form.get("start_time", "").strip()
+        end_time_text= request.form.get("end_time", "").strip()
+        location= request.form.get("location", "").strip()
+        notes= request.form.get("notes", "").strip()
 
         if not module_name or not class_type or not day_of_week or not start_time_text or not end_time_text or not location:
             flash("Module name, class type, day, times and location are required.", "danger")
