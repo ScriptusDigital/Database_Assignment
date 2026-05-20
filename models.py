@@ -24,7 +24,8 @@ class User(UserMixin, db.Model):
         cascade='all, delete-orphan',
         )
     
-#===LINK USER TO Assignment===#
+#===LINK USER TO ASSIGMENT===#
+
     assignments = db.relationship(
         'Assignment', 
         backref='user', 
@@ -42,7 +43,8 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
     
 
-    #===LINK USER TO Assignment===#
+ #===LINK USER TO TIMETABLE===#
+
     timetable_entries = db.relationship(
         "TimetableEntry",
         backref='user', 

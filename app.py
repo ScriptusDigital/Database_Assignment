@@ -1,8 +1,9 @@
+ #===Library imports for dats, times and environment===#
 import os   
 from datetime import date, datetime, timedelta
 
-
 from dotenv import load_dotenv
+
 from flask_migrate import Migrate
 
 from flask import (
@@ -21,7 +22,10 @@ from flask_login import (
     logout_user
 )   
 
+ #===WTForms classes===#
+
 from forms import AssignmentForm, AssignmentStatusForm, ExpenseForm, RegistrationForm, LoginForm, TimetableEntryForm
+
 from models import User, Expense, Assignment, TimetableEntry, db
 
 load_dotenv()
@@ -35,6 +39,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False   
 
 #====CODE ADDED FOLLOWING NEON CONNECTION ISSUES====#
+
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_pre_ping": True,
     "pool_recycle": 300,
@@ -52,6 +57,7 @@ migrate = Migrate(app, db)
 
 
 #====LOGIN MANAGER====#
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -78,6 +84,7 @@ def dashboard():
     today = date.today()
     next_week = today + timedelta(days=7)
    
+ #===Dashboard assignment cards===#
     assignments = Assignment.query.filter_by(user_id=current_user.id).all()
     expenses = Expense.query.filter_by(user_id=current_user.id).all()
    
@@ -106,6 +113,7 @@ def dashboard():
         .order_by(Assignment.due_date.asc())
         .all()
     )
+ #===Dashboard Budget cards===#
 
     total_spending = sum(expense.amount for expense in expenses)
     recent_expenses = (
@@ -115,7 +123,7 @@ def dashboard():
         .all()
         )
  
- #====DEFINITIONS FOR NEXT CLASS/EVENT LOGIC====#
+ #====Definitions for next class logic====#
     days_order = [
         "Monday",
         "Tuesday",
@@ -209,6 +217,7 @@ def register():
       
     return render_template('register.html', form=form)
 
+ #====Login and Logout logic====#
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -242,7 +251,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
- #====BUDGET==#
+ #====Budget page build==#
 
 @app.route('/budget', methods=['GET', 'POST'] )
 @login_required
@@ -286,6 +295,7 @@ def budget():
         form=form)
 
 #====Expense deletion logic - CRUD ==#
+
 @app.route('/delete_expense/<int:expense_id>', methods=['POST'])
 @login_required
 def delete_expense(expense_id):
@@ -355,6 +365,7 @@ def assignments():
 #====Update and delete function for assignment cards - CRUD FUNCTION==#
 #===Based on elements of https://flask-sqlalchemy.readthedocs.io/en/stable/queries==#
 #=== and https://bdavison.napier.ac.uk/web/flask/basics/crud==#
+
 @app.route("/assignment/<int:assignment_id>/status", methods=["POST"])
 @login_required
 def update_assignment_status(assignment_id):
@@ -391,6 +402,7 @@ def delete_assignment(assignment_id):
         return redirect(url_for("assignments"))
 
 #====Timetable route and logic==#
+
 @app.route('/timetable', methods=['GET', 'POST'])
 @login_required
 def timetable():

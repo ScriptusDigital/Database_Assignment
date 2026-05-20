@@ -3,7 +3,7 @@ from wtforms import BooleanField, DateField, DecimalField,PasswordField, SelectF
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
-#====Registration and login ==#
+#====Registration and login forms ==#
 
 class RegistrationForm(FlaskForm):
     username = StringField(
@@ -63,7 +63,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Log in")
 
 
-    #====Assignment forms ==#
+#====Assigment input form fields ==#
 
 
 class AssignmentForm(FlaskForm):
@@ -137,7 +137,7 @@ class AssignmentStatusForm(FlaskForm):
         submit = SubmitField("Update")
         
 
-      #====Expense forms logic ==#
+#====Expense form logic ==#
 
 class ExpenseForm(FlaskForm):
     title = StringField(
@@ -186,6 +186,7 @@ class ExpenseForm(FlaskForm):
     submit = SubmitField("Add expense")
 
 #====Timetable Form ==#
+
 class TimetableEntryForm(FlaskForm):
     module_name = StringField(
           "Module_name",
