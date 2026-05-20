@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, DateField, DecimalField,PasswordField, SelectField, StringField, SubmitField, TextAreaField
+from wtforms import BooleanField, DateField, DecimalField,PasswordField, SelectField, StringField, SubmitField, TextAreaField, TimeField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
@@ -183,6 +183,77 @@ class ExpenseForm(FlaskForm):
 
     submit = SubmitField("Add expense")
 
+#====Timetable Form ==#
+class TimetableEntryForm(FlaskForm):
+    title = StringField(
+          "Module_name",
+          validators=[
+                DataRequired(message="Please enter and module name."),
+                Length(max=120, message="Module name must be 12o characters or fewer.")
+          ]
+    )      
+
+       
+    class_type = SelectField(
+          "Class type",
+          choices=[
+               ("", "Select type"),
+               ("Lecture", "Lecture"),
+                ("Tutorial", "Tutorial"),
+                 ("Lab", "Lab"),
+                  ("Seminar", "Seminar"),
+                   ("Study session", "Study session"),
+                     ("Other", "Other"),
+          ],
+        
+        validators=[
+                DataRequired(message="Please choose a class type."),
+        ]
+    )
+
+    day_of_week = SelectField(
+          "Day",
+          choices=[
+               ("", "Select daay"),
+               ("Monday", "Monday"),
+                ("Tuesday", "Tuesday"),
+                 ("Wednesday", "Wednesday"),
+                  ("Thursday", "Thursday"),
+                  ("Friday", "Friday"),
+                     ("Saturday", "Saturday"),
+                     ("Sunday", "Sunday"),
+          ],
+        
+        validators=[
+                DataRequired(message="Please choose a day."),
+        ]
+    )
+
+    start_time = TimeField(
+         "Start time",
+         validators=[
+              DataRequired(message="Please enter a start time.")
+         ]
+    )
+
+    end = TimeField(
+         "Start time",
+         validators=[
+              DataRequired(message="Please enter an end time.")
+         ]
+    )
+
+    title = StringField(
+          "Location",
+          validators=[
+                DataRequired(message="Please enter a location."),
+                Length(max=150, message="Location  must be 150 characters or fewer.")
+          ]
+    )      
+
+    notes = TextAreaField("Notes")
+
+    submit = SubmitField("Save entry")
 
                
 
