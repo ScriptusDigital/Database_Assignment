@@ -21,7 +21,7 @@ from flask_login import (
     logout_user
 )   
 
-from forms import AssignmentForm, AssignmentStatusForm, RegistrationForm, LoginForm
+from forms import AssignmentForm, AssignmentStatusForm, ExpenseForm, RegistrationForm, LoginForm
 from models import User, Expense, Assignment, TimetableEntry, db
 
 load_dotenv()
