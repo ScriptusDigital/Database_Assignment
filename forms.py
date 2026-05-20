@@ -17,7 +17,8 @@ class RegistrationForm(FlaskForm):
     email = StringField(
         "Email",
         validators=[
-            DataRequired(),
+            DataRequired(message="Please enter an email address"),
+            Email(message="Please enter a valid email email address"),
             Length(max=150),
         ]
     )
@@ -45,8 +46,9 @@ class LoginForm(FlaskForm):
     email = StringField(
         "Email", 
         validators=[
-            DataRequired(),
-       
+
+             DataRequired(message="Please enter your email address"),
+            Email(message="Please enter an a valid email address"),
         ]
     )
 
