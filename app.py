@@ -263,58 +263,27 @@ def budget():
         db.session.commit()
 
         flash('expense added successfully!', 'success')
-
-        if not title or not category or not amount_text or not date_text:
-            flash('Please fill out all required fields.', 'danger')
-            return redirect(url_for('budget'))
-        
-        allowed_categories = [
-            "Rent",
-            "Food",
-            "Transport",
-            "Books",
-            "Subscriptions",
-            "Social",
-            "Other",
-        ]
-
-        if category not in allowed_categories:
-            flash('Please choose a valid category.','danger')
-            return redirect(url_for('budget'))
-
-        try:
-            amount = float(amount_text)
-        except ValueError:
-            flash('Please enter a valid number for amount.', 'danger')
-            return redirect(url_for('budget'))
-        if amount <= 0:
-            flash('Amount must be greater than zero.', 'danger')
-            return redirect(url_for('budget'))
-        try:
-            expense_date = datetime.strptime(date_text, '%Y-%m-%d').date()
-        except ValueError:
-            flash('Please enter a valid date in YYYY-MM-DD format.', 'danger')
-            return redirect(url_for('budget'))
-        expense = Expense(
-            title=title,
-            category=category,
-            amount=amount,
-            date=expense_date,
-            notes=notes,
-            user_id=current_user.id
-        )
-        db.session.add(expense)
-        db.session.commit()
-        flash('Expense added successfully!', 'success')
         return redirect(url_for('budget'))
 
-    expenses = Expense.query.filter_by(user_id=current_user.id).order_by(Expense.date.desc()).all()
+    expenses = (
+        Expense.query
+        .filter_by(user_id=current_.id)
+        .order_by(expense.date.desc())
+        .all()
+    )
+
     total_spent = sum(expense.amount for expense in expenses)
+
     category_totals = {}
     for expense in expenses:
         category_totals[expense.category] = category_totals.get(expense.category, 0) + expense.amount
-            
-    return render_template('budget.html', expenses=expenses, total_spent=total_spent, category_totals=category_totals)
+    
+    return render_template(
+        'budget.html', 
+        expenses=expenses, 
+        total_spent=total_spent, 
+        category_totals=category_totals,
+        form=form)
 
 #====Expense deletion logic - CRUD ==#
 @app.route('/delete_expense/<int:expense_id>', methods=['POST'])
