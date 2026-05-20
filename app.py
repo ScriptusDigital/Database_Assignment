@@ -413,71 +413,40 @@ def timetable():
             flash("End time must be after start time.", "danger")
             return redirect(url_for("timetable"))
 
-    entry = TimetableEntry(
-        module_name= 
-        class_type= request.form.get("class_type", "").strip()
-        day_of_week= request.form.get("day_of_week", "").strip()
-        start_time_text= request.form.get("start_time", "").strip()
-        end_time_text= request.form.get("end_time", "").strip()
-        location= request.form.get("location", "").strip()
-        notes= request.form.get("notes", "").strip()
-
-        if not module_name or not class_type or not day_of_week or not start_time_text or not end_time_text or not location:
-            flash("Module name, class type, day, times and location are required.", "danger")
-            return redirect(url_for("timetable"))
-        
-        if class_type not in class_types:
-            flash("Please choose a valid class type.", "danger")
-            return redirect(url_for("timetable"))
-        
-                
-        if day_of_week not in days:
-            flash("Please choose a valid weekday.", "danger")
-            return redirect(url_for("timetable"))
-
-        try:
-            start_time = datetime.strptime(start_time_text, "%H:%M").time()
-            end_time = datetime.strptime(end_time_text, "%H:%M").time()
-
-        except ValueError:
-                flash("Please enter valid times.", "danger")
-                return redirect(url_for("timetable"))
-        
-        if end_time <= start_time:
-                flash("End time must be after start time.", "danger")
-                return redirect(url_for("timetable"))
-        
         entry = TimetableEntry(
-            module_name=module_name,
-            class_type=class_type,
-            day_of_week=day_of_week,
-            start_time=start_time,
-            end_time=end_time,
-            location=location,
-            notes=notes,
+            module_name=form.module_name.data.strip(), 
+            class_type=form.class_type.data,
+            day_of_week=form.day_of_week.data, 
+            start_time=form.start_time.data,
+            end_time=form.end_time.data,
+            location=form.location.data.strip(),
+            notes=form.noes.data.strip() if form.notes.data else "",
             user_id=current_user.id,
         )
 
         db.session.add(entry)
         db.session.commit()
+    
         flash("Timetable entry added successfully.", "success")
         return redirect(url_for("timetable"))
 
     entries_by_day = {}
+
     for day in days:
-            entries_by_day[day] = (
-                TimetableEntry.query
-                .filter_by(user_id=current_user.id, day_of_week=day)
-                .order_by(TimetableEntry.start_time.asc())
-                .all()
+        entries_by_day[day] = (
+            TimetableEntry.query
+            .filter_by(user_id=current_user.id, day_of_week=day)
+            .order_by(TimetableEntry.start_time.asc())
+            .all()
 
-            )
-
+    )   
     
-    return render_template("timetable.html",
-    days=days,
-    time_slots=time_slots,
-    entries_by_day=entries_by_day,
+    return render_template(
+        "timetable.html",
+        days=days,
+        time_slots=time_slots,
+        entries_by_day=entries_by_day,
+        form=form,
 )
 
 
