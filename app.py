@@ -253,8 +253,8 @@ def budget():
         expense = Expense(  
             title=form.title.data.strip(),
             category=form.category.data,
-            amount_text=form.amount.data,
-            date_text=form.date.data,
+            amount=float(form.amount.data),
+            date=form.date.data,
             notes=form.notes.data.strip() if form.notes.data else "",
             user_id=current_user.id
         )
@@ -262,13 +262,13 @@ def budget():
         db.session.add(expense)
         db.session.commit()
 
-        flash('expense added successfully!', 'success')
+        flash('Expense added successfully!', 'success')
         return redirect(url_for('budget'))
 
     expenses = (
         Expense.query
-        .filter_by(user_id=current_.id)
-        .order_by(expense.date.desc())
+        .filter_by(user_id=current_user.id)
+        .order_by(Expense.date.desc())
         .all()
     )
 
