@@ -93,7 +93,7 @@ class AssignmentForm(FlaskForm):
     priority = SelectField(
         "Priority",
         choices=[
-             ("", "Select priority")
+             ("", "Select priority"),
             ("Low", "Low"),
             ("Medium", "Medium"),
             ("High", "High"),
