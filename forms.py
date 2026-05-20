@@ -185,7 +185,7 @@ class ExpenseForm(FlaskForm):
 
 #====Timetable Form ==#
 class TimetableEntryForm(FlaskForm):
-    title = StringField(
+    module_name = StringField(
           "Module_name",
           validators=[
                 DataRequired(message="Please enter and module name."),
@@ -236,14 +236,14 @@ class TimetableEntryForm(FlaskForm):
          ]
     )
 
-    end = TimeField(
-         "Start time",
+    end_time = TimeField(
+         "End time",
          validators=[
               DataRequired(message="Please enter an end time.")
          ]
     )
 
-    title = StringField(
+    location = StringField(
           "Location",
           validators=[
                 DataRequired(message="Please enter a location."),

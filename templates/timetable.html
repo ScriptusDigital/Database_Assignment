@@ -97,63 +97,80 @@
     </div>
 
 <form method="POST" class="stacked-form" data-validate="true">
-    <div class="form-group">
-        <label for="module_name">Module name</label>
-       <input type="text" id="module_name" name="module_name" placeholder="Databases, Web Development..." required>
-    </div>
+    {{ form.hidden_tag() }}
+            <div class="form-group">
+                
+                {{ form.module_name.label }}
+                {{ form.module_name(id="module_name", placeholder="Databases, Web Development...") }}
 
-<div class="form-group">
-    <label for="class_type">Class type</label>
-<select id="class_type" name="class_type" required>
-    <option value="">Select type</option>
-      <option value="Lecture">Lecture</option>
-        <option value="Tutorial">Tutorial</option>
-          <option value="Lab">Lab</option>
-            <option value="Seminar">Seminar</option>
-              <option value="Study session">Study session</option>
-                <option value="Other">Other</option>
-</select>
-</div>
+                {% for error in form.module_name.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
+        
+            <div class="form-group">
+                
+                {{ form.class_type.label }}
+                {{ form.class_type(id="class_type") }}
 
-<div class="form-group">
-<label for="day_of_week">Day</label>
-<select id="day_of_week" name="day_of_week" required>
-    <option value="">Select day</option>
-    {% for day in days %}
-        <option value="{{ day }}">{{ day }}</option>
-    {% endfor %}
-    </select>
-</div>
+                {% for error in form.class_type.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
 
+ <div class="form-group">
+                
+                {{ form.day_of_week.label }}
+                {{ form.day_of_week(id="day_of_week") }}
+
+                {% for error in form.day_of_week.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
 <div class="form-row">
-    <div class="form-group">
-        <label for="start_time">Start time</label>
-        <input type="time" id="start_time" name="start_time" required>
-    </div>
+ <div class="form-group">
+                
+                {{ form.start_time.label }}
+                {{ form.start_time(id="start_time") }}
+
+                {% for error in form.start_time.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+ <div class="form-group">
+                
+                {{ form.end_time.label }}
+                {{ form.end_time(id="end_time") }}
+
+                {% for error in form.end_time.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+<div class="form-group">
+                
+                {{ form.location.label }}
+                {{ form.location(id="location", placeholder="Room, campus, online...") }}
+
+                {% for error in form.location.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
 
 <div class="form-group">
-            <label for="end_time">End time</label>
-        <input type="time" id="end_time" name="end_time" required>
-    </div>
-    </div>
+                
+                {{ form.notes.label }}
+                {{ form.notes(id="notes", rows="4", placeholder="Optional notes about this class") }}
 
-    <div class="form-group">
-            <label for="location">Location</label>
-<input type="text" id="location" name="location"
-placeholder="Room, campus, online..." required>
-
-</div>
-
-    <div class="form-group">
-            <label for="notes">Notes</label>
-<textarea id="notes" name="notes" rows="4" placeholder="Optional notes about this class">
-</textarea>
-
-    </div>
+                {% for error in form.notes.errors %}
+                <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
 
 <div class="modal-actions">
-      <button type="submit" class="btn btn-primary">Save entry</button>
-  
+    {{ form.submit(class="btn btn-primary") }}
+    
 </div>
 </form>
  

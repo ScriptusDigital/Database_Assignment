@@ -420,7 +420,7 @@ def timetable():
             start_time=form.start_time.data,
             end_time=form.end_time.data,
             location=form.location.data.strip(),
-            notes=form.noes.data.strip() if form.notes.data else "",
+            notes=form.notes.data.strip() if form.notes.data else "",
             user_id=current_user.id,
         )
 
