@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, DateField, PasswordField, SelectField, StringField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, DecimalField, Email, EqualTo, Length
 
 
 #====Registration and login ==#
@@ -133,4 +133,60 @@ class AssignmentStatusForm(FlaskForm):
     )
 
         submit = SubmitField("Update")
+        
+
+      #====Expense forms logic ==#
+
+class ExpenseForm(FlaskForm):
+    title = StringField(
+          "Expense title",
+          validators=[
+                DataRequired(message="Please enter and expense title."),
+                Length(max=200, message="Expense title must be 200 characters or fewer.")
+          ]
+    )               
+     
+    category = SelectField(
+          "Category",
+          choices=[
+               ("", "Select a category"),
+               ("Rent", "Rent"),
+                ("Food", "Food"),
+                 ("Transport", "Transport"),
+                  ("Books", "Books"),
+                   ("Subscriptions", "Subscriptions"),
+                    ("Social", "Social"),
+                     ("Other", "Other"),
+          ],
+        
+        validators=[
+                DataRequired(message="Please choose a category."),
+        ]
+    )
+
+    amount = DecimalField(
+          "Amount (€)",
+          places=2,
+          validators=[
+                DataRequired(message="Please enter an amount."),
+          ]
+     )
+
+    date = DateField(
+        "Date",
+        validators=[
+                DataRequired(message="Please enter a date."),
+          ]
+    )
+
+    notes = TextAreaField("Notes")
+
+    submit = SubmitField("Add expense")
+
+
+               
+
+
+
+
         
