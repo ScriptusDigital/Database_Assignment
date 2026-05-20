@@ -86,7 +86,6 @@ validateForms.forEach(form => {
 
 const timetableModal = document.querySelector('#timetableModal');
 const closeTimetableModal = document.querySelector('#closeTimetableModal');
-const cancelTimetableModal = document.querySelector('#cancelTimetableModal');
 const calendarSlots = document.querySelectorAll('.calendar-slot');
 const dayInput = document.querySelector('#day_of_week');
 const startInput = document.querySelector('#start_time');
@@ -119,9 +118,7 @@ if (closeTimetableModal) {
 }
 
 
-if (cancelTimetableModal) {
-    cancelTimetableModal.addEventListener('click', hideTimetableModal);
-}
+
 
 calendarSlots.forEach(slot => {
     slot.addEventListener('click', () => {
