@@ -1,6 +1,6 @@
 # Project Title 
 
-**Student Pilot**
+**StudentPilot**
 
 ## Project Description 
 
@@ -8,7 +8,7 @@ StudentPilot is a Flask-based student planning web application that helps users 
 
 The project demonstates core Flack and database concepts such as routing, Jinja templating, user authentication, WTFOrm calidation, PostreSQL database integration, SQLAlchemy models, CRUD operations, flash messages and dynamic content rendering. It also features front-end techniques, including responsive layout, navgaion toggling, assignment filtering, delete confirmations and a timetable modal window controlled with JavaScript. 
 
-##Features 
+## Features 
 
 #### Feature 1 - User registration and login 
 Users can register with a username, email address and password. Passwords are hashed before being stored in the database. Users can then log in and log out using Flask-Login. Protected routes then ensure that only logged-in users can access the dashboard, assignments, budget and timetable pages. 
@@ -27,14 +27,14 @@ Users can add expenses with a title, category, amount, date and optional notes. 
 Users can create a weekly timetable by clicking on emppty calendar slots. A modal form opens and automatically fills in the selected day, start time and end time. Users can then add the module name, class type, location and notes. Timetable entries are shown in the correct day and time slot and can be deleted.  
 
 #### Feature 6 - CRUD functionality
-Assignments can be created, displayed, updated and deleted. Expenses and timetable entries can be created, displayed and deleted. User records can be created with registration and authenticated through login.
+Assignments can be created, displayed, updated and deleted. Expenses and timetable entries can be created, displayed and deleted. User records can be created through registration and authenticated through login.
 
 ## Database 
 The project uses PostgrSQL with Flask-SQLAlchemy. The main models are:
-- 'User'
-- 'Assignment'
-- 'Expense'
-- 'TimetableEntry'
+- `User`
+- `Assignment`
+- `Expense`
+- `TimetableEntry`
 
 Each assignment, expense and timetable entry is linked to a user through a foreign key. This means that each logged-in user only ever sees and manages their own data. 
 
@@ -58,17 +58,17 @@ The layout was designed to adapt to different screen sizes. Wider screens use tw
 ## Development Process
 
 ### Project Planning
-The project was planned as a student dashboard app with three main areas: coursework, spending and timetable management. The aim was to build a practical Flask application that demonstrated user authentication, database backed CRUD functionality and dynamic page rendering. The core routes were planned around the main user journey: Home>registration>login>dashboard>assignments>budget>timtetabl. The database was therefore designed around a central 'user' model connected to the assignment, expnse and timetable records. This allowed each user's data to be filtered by 'current_user.id'. 
+The project was planned as a student dashboard app with three main areas: coursework, spending and timetable management. The aim was to build a practical Flask application that demonstrated user authentication, database backed CRUD functionality and dynamic page rendering. The core routes were planned around the main user journey: Home>registration>login>dashboard>assignments>budget>timtetabl. The database was therefore designed around a central 'user' model connected to the assignment, expnse and timetable records. This allowed each user's data to be filtered by `current_user.id`. 
 
 ### Form handling, WTForms and Flask-Migrate
 The application was orignally designed around manual form handling while the core functionality was being built. This helped keep the early version focussed on getting routes, templates, database models and CRUD operations working. 
 
-Once the core site was stable and time allowed, I improved the structure by migrating the forms to WTForms and Flask-WTF. This moved validation into 'forms.py', made the route logic cleaner and added and extra layer of protection (CSRF). 
+Once the core site was stable and time allowed, I improved the structure by migrating the forms to WTForms and Flask-WTF. This moved validation into `forms.py`, made the route logic cleaner and added and extra layer of protection (CSRF). 
 
 Flask-Migrate was also added after the database models were stable. This allowed the database schema to be managed through migrations rather than relying on a simple table creation workflow, making the project easier for me to manage in terms of build workflow as the application grew.  
 
 ### Front-end and interactivity
-Jinja templates were used to render the pages while keeping a shared structure through 'base.html'CSS was kept in a separate style sheet. I chose to write the CSS manually rather than use Bootstrap because I wanted more control over the layout, spacing, colours, and visual identity of the app. 
+Jinja templates were used to render the pages while keeping a shared structure through `base.html` CSS was kept in a separate style sheet. I chose to write the CSS manually rather than use Bootstrap because I wanted more control over the layout, spacing, colours, and visual identity of the app. 
 
 Javascript is used for the mobile navigation toggle, delete confirmation warnings, assignment status filtering, timetable modal opening and closing, ad timetable slot pre-filling. The timetable modal uses data attributes from the clicked calendar slot to populate the day, start time and end time fields. 
 
@@ -126,8 +126,8 @@ Manual testing was carried out throughout development. The main areas tested wer
 | `/logout` | GET | User logout |
 | `/dashboard` | GET | User dashboard summary |
 | `/assignments` | GET, POST | view and add assignemnts |
-| `/assignment/<assigment_id>status` | POST | Update assignment status |
-| `/assignment/<assigment_id>delete` | POST | Delete assignment |
+| `/assignment/<assignment_id>/status`| POST | Update assignment status |
+| `/assignment/<assignment_id>/delete` | POST | Delete assignment |
 | `/budget` | GET, POST | view budget page and add expenses |
 | `/delete_expense/<expense_id>` | POST | Delete expense |
 | `/timetable` | GET, POST | view timetable and add timetable entried |
@@ -162,7 +162,7 @@ The timetable calendar and modal pre-fill behaviour were adapted from time-block
 ### CSS Variables
 CSS custom properties used to make the stylesheet easier to manage and keep colours, spacing and shared values consistent:
 
-- [W3Schools - CSS Variables](https://www.w3schools.com/css/css3_variables.asp*/)
+- [W3Schools - CSS Variables](https://www.w3schools.com/css/css3_variables.asp)
 
 ### Images and media
 - ‘favicon.jpg’ generated in ChatGPT
