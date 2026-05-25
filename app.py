@@ -137,40 +137,41 @@ def dashboard():
     now = datetime.now()
     today_name = days_order[now.weekday()]
     current_time = now.time()
+    today_index = days_order.index(today_name)
 
-    today_next_class = (
-        TimetableEntry.query    
-        .filter(
-            TimetableEntry.user_id == current_user.id,
-            TimetableEntry.day_of_week == today_name,
-            TimetableEntry.start_time >= current_time,
+    upcoming_timetable_entries = []
+
+    for offset in range(0, 7):
+        next_day = days_order[(today_index + offset) % 7]
+
+        query = TimetableEntry.query.filter_by(
+            user_id=current_user.id,
+            day_of_week=next_day,
         )
-    .order_by(TimetableEntry.start_time.asc())
-    .first()
-    )
 
-    next_timetable_entry = today_next_class
+ #====For today, only classes not started====#
+        if offset == 0:
+            query = query.filter(TimetableEntry.start_time >= current_time)
 
-    if not next_timetable_entry: 
-        today_index = days_order.index(today_name)
-
-        for offset in range(1, 8):
-            next_day = days_order[(today_index + offset) % 7]
-
-            next_timetable_entry = (
-                TimetableEntry.query.filter_by(
-                    user_id=current_user.id,
-                    day_of_week=next_day,
-                )
+        day_entries = (
+            query
             .order_by(TimetableEntry.start_time.asc())
-            .first() 
-            )
-        
-            if next_timetable_entry:
-              break
+            .all()
+        )
+
+        for entry in day_entries:
+            upcoming_timetable_entries.append(entry)
+
+            if len(upcoming_timetable_entries) == 2:
+                break
+
+        if len(upcoming_timetable_entries) == 2:
+            break
+
             
   #====Dashboard summary definitions====#
-    return render_template('dashboard.html',
+    return render_template(
+    'dashboard.html',
     total_assignments=total_assignments,
     completed_assignments=completed_assignments,
     pending_assignments=pending_assignments,
@@ -178,7 +179,7 @@ def dashboard():
     overdue=overdue,
     total_spending=total_spending,
     recent_expenses=recent_expenses,
-    next_timetable_entry=next_timetable_entry,
+    upcoming_timetable_entries=upcoming_timetable_entries,
     )
 
 

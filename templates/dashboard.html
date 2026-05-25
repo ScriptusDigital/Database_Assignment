@@ -42,41 +42,44 @@
 </section>
 <section class="dashboard-grid">
 <div class="dashboard-stack">
+
     <article class="panel">
         <div class="panel-header">
-            <h2>Next class</h2>
+            <h2>Upcoming classes</h2>
             <a href="{{ url_for('timetable') }}">View timetable</a>
         </div>
 
-        {% if next_timetable_entry %}
+        {% if upcoming_timetable_entries %}
         <div class="record-list">
+            {% for entry in upcoming_timetable_entries %}
              <div class="record-card">
                      <div class="record-main">
-                        <h3>{{ next_timetable_entry.module_name }}</h3>
+                        <h3>{{ entry.module_name }}</h3>
             <p>
-                {{ next_timetable_entry.class_type }} ·                
-                {{ next_timetable_entry.day_of_week }} ·  
-                {{ next_timetable_entry.start_time.strftime("%H:%M") }} -  
-                {{ next_timetable_entry.end_time.strftime("%H:%M") }}  
+                {{ entry.class_type }} ·                
+                {{ entry.day_of_week }} ·  
+                {{ entry.start_time.strftime("%H:%M") }} -  
+                {{ entry.end_time.strftime("%H:%M") }}  
 
             </p>
-            {% if next_timetable_entry.location %}
+            {% if entry.location %}
             <p>
                 <strong>Location:</strong>
-                    {{ next_timetable_entry.location }}
+                    {{ entry.location }}
             </p>
                 {% endif %}
-            {% if next_timetable_entry.notes %}
+            {% if entry.notes %}
             <p>
                 <strong>Note:</strong>
 
-          {{ next_timetable_entry.notes }}
+          {{ entry.notes }}
             </p>
             {% endif %}
 
 
                      </div>
              </div>
+             {% endfor %}
         </div>
         {% else %}
         <p class="empty-text">No timetable entries added yet.</p>
