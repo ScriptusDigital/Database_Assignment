@@ -446,7 +446,7 @@ a {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
-    align-self: start;
+    align-items: start;
     margin-top: 19px;
     margin-bottom: 24px;
 
