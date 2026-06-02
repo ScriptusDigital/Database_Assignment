@@ -115,9 +115,9 @@
 
 <div class="record-actions">
     <form method="POST" action="{{ url_for('update_assignment_status', assignment_id=assignment.id) }}">
-        {{ status_forms[assignment.id].hidden_tag() }}
-         {{ status_forms[assignment.id].status(class="small-select") }}
-        {{ status_forms[assignment.id].submit(class="btn btn-small") }}
+        {{ status_forms[assignment.id].csrf_token( id="csrf-token-" ~ assignment.id) }}
+         {{ status_forms[assignment.id].status(class="small-select", id="status-" ~ assignment.id) }}
+        {{ status_forms[assignment.id].submit(class="btn btn-small", id="submit-" ~ assignment.id) }}
     </form>
 
     <form method="POST" action="{{ url_for('delete_assignment', assignment_id=assignment.id) }}" class="delete-form">

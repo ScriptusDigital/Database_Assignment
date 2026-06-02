@@ -131,9 +131,6 @@ class AssignmentStatusForm(FlaskForm):
             ("Completed", "Completed"),
         ],
         default="Not started",
-        validators=[
-            DataRequired(message="Please choose a status."),
-        ]
     )
 
         submit = SubmitField("Update")

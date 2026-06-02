@@ -6,7 +6,7 @@
 
 StudentPilot is a Flask-based student planning web application that helps users manage assigments, spending and weekly timetable entries in one place. The app allows users to create an account, lof in add coursework, deadlines, track assignment status, record xpenses, and build a weekly timetable from a personal dashboard. 
 
-The project demonstates core Flack and database concepts such as routing, Jinja templating, user authentication, WTFOrm calidation, PostreSQL database integration, SQLAlchemy models, CRUD operations, flash messages and dynamic content rendering. It also features front-end techniques, including responsive layout, navgaion toggling, assignment filtering, delete confirmations and a timetable modal window controlled with JavaScript. 
+The project demonstates core Flack and database concepts such as routing, Jinja templating, user authentication, WTForm validation, PostgreSQL database integration, SQLAlchemy models, CRUD operations, flash messages and dynamic content rendering. It also features front-end techniques, including responsive layout, navigation toggling, assignment filtering, delete confirmations and a timetable modal window controlled with JavaScript. 
 
 ## Features 
 
