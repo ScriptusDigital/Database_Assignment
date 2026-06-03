@@ -30,7 +30,7 @@ Users can create a weekly timetable by clicking on empty calendar slots. A modal
 Assignments can be created, displayed, updated and deleted. Expenses and timetable entries can be created, displayed and deleted. User records can be created through registration and authenticated through login.
 
 ## Database 
-The project uses PostgrSQL with Flask-SQLAlchemy. The main models are:
+The project uses PostgreSQL with Flask-SQLAlchemy. The main models are:
 - `User`
 - `Assignment`
 - `Expense`
@@ -43,14 +43,14 @@ Each assignment, expense and timetable entry is linked to a user through a forei
 
 ## Design choices
 
-### Theme a visual style
+### Theme and visual style
 The visual style was designed as a clean student productivity platform. The idea was to make the application feel and appear practical, organised and easy to use rather than overly decorative. The interface uses cards, panels, rounded corners, clear headings and a neutral palette. 
 
 ### layout
 The main pages use repeated layout patterns so that the application feels consistent. These includ stat cards, record cards, form panels, two-column sections and stacked dashboard panels. The timetable page uses a grid layout to present a weekly calendar. 
 
 ### Colours
-The colour palette uses soft background tones, white panels and darker text elements for contract. The intention was to keep the interface readable and calm while giving the buttons and interactive elements visual emphasis. 
+The colour palette uses soft background tones, white panels and darker text elements for contrast. The intention was to keep the interface readable and calm while giving the buttons and interactive elements visual emphasis. 
 
 #### Responsiveness
 The layout was designed to adapt to different screen sizes. Wider screens use two-column layouts, while smaller screens stack the content vertically. The timetable uses horizontal scrolling where required to preserve the grid structure. 
@@ -58,7 +58,7 @@ The layout was designed to adapt to different screen sizes. Wider screens use tw
 ## Development Process
 
 ### Project Planning
-The project was planned as a student dashboard app with three main areas: coursework, spending and timetable management. The aim was to build a practical Flask application that demonstrated user authentication, database backed CRUD functionality and dynamic page rendering. The core routes were planned around the main user journey: Home>registration>login>dashboard>assignments>budget>timtetabl. The database was therefore designed around a central 'user' model connected to the assignment, expense and timetable records. This allowed each user's data to be filtered by `current_user.id`. 
+The project was planned as a student dashboard app with three main areas: coursework, spending and timetable management. The aim was to build a practical Flask application that demonstrated user authentication, database backed CRUD functionality and dynamic page rendering. The core routes were planned around the main user journey: Home>registration>login>dashboard>assignments>budget>timtetable. The database was therefore designed around a central 'user' model connected to the assignment, expense and timetable records. This allowed each user's data to be filtered by `current_user.id`. 
 
 ### Form handling, WTForms and Flask-Migrate
 The application was originally designed around manual form handling while the core functionality was being built. This helped keep the early version focused on getting routes, templates, database models and CRUD operations working. 
@@ -82,7 +82,7 @@ One of the main challengs was keeping the Flask routes, WTForms field names and 
 
 The app was already working before the migration to WTForms and Flask-Migrate. Refactoring a stable app meant a lot of back and forth between pages and errors. I completed the migration page-by-page so that each area could be tested before moving on. 
 
-If I were starting the project again, I would introduce WTForms and Flask-Migrate earlier. However, beginning with more direct-handling was useful because it helped me understand the underlying Flask logic around POST requests, validation and database commits. Refactoring to WTForms later made the benefits clearer, particularly around cleaner route logic, centralised validation and protection. 
+If I were starting the project again, I would introduce WTForms and Flask-Migrate earlier. However, beginning with more direct form handling was useful because it helped me understand the underlying Flask logic around POST requests, validation and database commits. Refactoring to WTForms later made the benefits clearer, particularly around cleaner route logic, centralised validation and CSRF protection. 
 
 ### Timetable modal
 
