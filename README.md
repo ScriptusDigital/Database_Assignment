@@ -68,7 +68,7 @@ Once the core site was stable and time allowed, I improved the structure by migr
 Flask-Migrate was also added after the database models were stable. This allowed the database schema to be managed through migrations rather than relying on a simple table creation workflow, making the project easier for me to manage in terms of build workflow as the application grew.  
 
 ### Front-end and interactivity
-Jinja templates were used to render the pages while keeping a shared structure through `base.html`. CSS was kept in a separate style sheet. I chose to write the CSS manually rather than use Bootstrap because I wanted more control over the layout, spacing, colours, and visual identity of the app. 
+Jinja templates were used to render the pages while keeping a shared structure through `base.html`. CSS was kept in a separate style sheet. I chose to write the CSS manually rather than use Bootstrap because I wanted more control over the layout, spacing, colours, and visual identity of the app. Mention was made of Bootstrap in class, but I chose not to pursue using it until the next module. 
 
 Javascript is used for the mobile navigation toggle, delete confirmation warnings, assignment status filtering, timetable modal opening and closing, and timetable slot pre-filling. The timetable modal uses data attributes from the clicked calendar slot to populate the day, start time and end time fields. 
 
