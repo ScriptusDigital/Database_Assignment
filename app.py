@@ -1,4 +1,4 @@
- #===Library imports for dats, times and environment===#
+ #===Library imports for dates, times and environment===#
 import os   
 from datetime import date, datetime, timedelta
 
